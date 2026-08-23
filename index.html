@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnowPro Core Roadmap — Kunal Kokate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1420;
+    --bg-panel:#101d2e;
+    --bg-panel-2:#0e1a29;
+    --grid-line:rgba(127,182,212,0.10);
+    --grid-line-strong:rgba(127,182,212,0.18);
+    --ice:#8fd6e8;
+    --ice-dim:#4f8fa6;
+    --amber:#e8a15c;
+    --green:#7ecb9e;
+    --text:#eef3f7;
+    --text-mute:#8ea0b3;
+    --text-faint:#5b6d80;
+    --border:#1c2c40;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.55;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .display{font-family:'Space Grotesk', sans-serif;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:var(--ice); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--ice); outline-offset:3px;}
+
+  .wrap{max-width:1000px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    padding:88px 0 64px;
+    border-bottom:1px solid var(--border);
+    position:relative;
+  }
+  .tag-row{
+    display:flex; gap:10px; flex-wrap:wrap;
+    margin-bottom:28px;
+  }
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+    color:var(--ice);
+    border:1px solid var(--ice-dim);
+    padding:5px 10px;
+    border-radius:3px;
+    background:rgba(143,214,232,0.06);
+  }
+  h1.title{
+    font-size:clamp(34px, 5.4vw, 58px);
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1.05;
+    max-width:820px;
+  }
+  h1.title .accent{color:var(--ice);}
+  .subtitle{
+    margin-top:18px;
+    font-size:17px;
+    color:var(--text-mute);
+    max-width:600px;
+  }
+  .stat-strip{
+    margin-top:44px;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    border:1px solid var(--border);
+    border-radius:6px;
+    overflow:hidden;
+    background:var(--bg-panel);
+  }
+  .stat{
+    padding:18px 20px;
+    border-right:1px solid var(--border);
+  }
+  .stat:last-child{border-right:none;}
+  .stat-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    color:var(--text-faint);
+    text-transform:uppercase;
+  }
+  .stat-value{
+    margin-top:6px;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:22px;
+    font-weight:600;
+    color:var(--text);
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{padding:64px 0;}
+  section.divider-top{border-top:1px solid var(--border);}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:8px;
+  }
+  .section-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--amber);
+  }
+  h2.section-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:26px;
+    font-weight:600;
+  }
+  .section-desc{
+    color:var(--text-mute);
+    max-width:620px;
+    margin-bottom:40px;
+    font-size:15px;
+  }
+
+  /* ---------- PIPELINE ---------- */
+  .pipeline{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+  .pipe-node{
+    display:grid;
+    grid-template-columns:56px 1fr;
+    gap:20px;
+    position:relative;
+    padding-bottom:36px;
+  }
+  .pipe-node:last-child{padding-bottom:0;}
+  .pipe-rail{
+    position:relative;
+    display:flex;
+    justify-content:center;
+  }
+  .pipe-rail::before{
+    content:'';
+    position:absolute;
+    top:34px;
+    bottom:-36px;
+    width:1px;
+    background:linear-gradient(var(--ice-dim), var(--border));
+  }
+  .pipe-node:last-child .pipe-rail::before{display:none;}
+  .pipe-dot{
+    width:34px; height:34px;
+    border-radius:50%;
+    border:1.5px solid var(--ice-dim);
+    background:var(--bg-panel);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ice);
+    z-index:1;
+  }
+  .pipe-body{
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:20px 22px;
+  }
+  .pipe-body h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:17px;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .pipe-body p{
+    color:var(--text-mute);
+    font-size:14.5px;
+  }
+  .pipe-tag{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.05em;
+    color:var(--text-faint);
+    margin-top:12px;
+    text-transform:uppercase;
+  }
+
+  /* ---------- DOMAINS ---------- */
+  .domain-list{display:flex; flex-direction:column; gap:14px;}
+  .domain-row{
+    display:grid;
+    grid-template-columns:1fr 180px 60px;
+    align-items:center;
+    gap:16px;
+  }
+  .domain-name{font-size:14.5px;}
+  .domain-track{
+    height:8px;
+    background:var(--bg-panel-2);
+    border:1px solid var(--border);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .domain-fill{
+    height:100%;
+    background:linear-gradient(90deg, var(--ice-dim), var(--ice));
+    border-radius:4px;
+  }
+  .domain-pct{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--text-mute);
+    text-align:right;
+  }
+  .domain-note{
+    margin-top:22px;
+    font-size:12.5px;
+    color:var(--text-faint);
+    font-family:'IBM Plex Mono', monospace;
+    line-height:1.6;
+  }
+  .new-topics{
+    margin-top:28px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .new-topic{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--green);
+    border:1px solid #2c5943;
+    background:rgba(126,203,158,0.06);
+    padding:5px 10px;
+    border-radius:3px;
+  }
+
+  /* ---------- LINKS ---------- */
+  .link-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+  .link-card{
+    border:1px solid var(--border);
+    background:var(--bg-panel);
+    border-radius:8px;
+    padding:18px 20px;
+    display:block;
+    transition:border-color 0.15s ease, transform 0.15s ease;
+  }
+  .link-card:hover{
+    border-color:var(--ice-dim);
+    text-decoration:none;
+    transform:translateY(-1px);
+  }
+  .link-eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--amber);
+  }
+  .link-title{
+    margin-top:6px;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:16px;
+    font-weight:600;
+    color:var(--text);
+  }
+  .link-desc{
+    margin-top:6px;
+    font-size:13px;
+    color:var(--text-mute);
+  }
+
+  /* ---------- CHECKLIST ---------- */
+  .checklist{
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:var(--bg-panel);
+    overflow:hidden;
+  }
+  .check-item{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+    padding:16px 20px;
+    border-bottom:1px solid var(--border);
+    cursor:pointer;
+    user-select:none;
+  }
+  .check-item:last-child{border-bottom:none;}
+  .check-box{
+    width:18px; height:18px;
+    border:1.5px solid var(--ice-dim);
+    border-radius:4px;
+    flex-shrink:0;
+    margin-top:2px;
+    display:flex; align-items:center; justify-content:center;
+    transition:background 0.15s ease, border-color 0.15s ease;
+  }
+  .check-box svg{opacity:0; transition:opacity 0.15s ease;}
+  .check-item.done .check-box{background:var(--ice); border-color:var(--ice);}
+  .check-item.done .check-box svg{opacity:1;}
+  .check-item.done .check-text{color:var(--text-faint); text-decoration:line-through;}
+  .check-text{font-size:14.5px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--border);
+    padding:40px 0 64px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .footer-note{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--text-faint);
+  }
+  .craft-badge{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--amber);
+    border:1px solid #6b4a26;
+    background:rgba(232,161,92,0.06);
+    padding:6px 12px;
+    border-radius:3px;
+  }
+
+  @media (max-width:640px){
+    .stat-strip{grid-template-columns:repeat(2, 1fr);}
+    .stat:nth-child(2){border-right:none;}
+    .stat:nth-child(1), .stat:nth-child(2){border-bottom:1px solid var(--border);}
+    .link-grid{grid-template-columns:1fr;}
+    .domain-row{grid-template-columns:1fr 100px 44px; gap:10px;}
+    header.hero{padding:56px 0 44px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="tag-row">
+      <span class="tag">COF&#8209;C03</span>
+      <span class="tag">CRAFT STAT &middot; LEVEL UP</span>
+    </div>
+    <h1 class="title">SnowPro Core<br><span class="accent">Study Roadmap</span></h1>
+    <p class="subtitle">A working path to the current Snowflake certification — built around what you already do at Argo, plus the gaps to close before test day.</p>
+
+    <div class="stat-strip">
+      <div class="stat">
+        <div class="stat-label">Cost</div>
+        <div class="stat-value">$175</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Format</div>
+        <div class="stat-value">100 Q / 115 min</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Passing score</div>
+        <div class="stat-value">750 / 1000</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Valid for</div>
+        <div class="stat-value">2 years</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="divider-top">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2 class="section-title">The pipeline</h2>
+    </div>
+    <p class="section-desc">Six stages, same way you'd stage a real data load — source, transform, validate, ship.</p>
+
+    <div class="pipeline">
+      <div class="pipe-node">
+        <div class="pipe-rail"><div class="pipe-dot">01</div></div>
+        <div class="pipe-body">
+          <h3>Confirm you're on COF-C03</h3>
+          <p>The old COF-C02 exam retired in 2026. Any material that doesn't say COF-C03 explicitly is stale — wrong domain weights, missing topics.</p>
+          <span class="pipe-tag">Source check</span>
+        </div>
+      </div>
+      <div class="pipe-node">
+        <div class="pipe-rail"><div class="pipe-dot">02</div></div>
+        <div class="pipe-body">
+          <h3>Snowflake University — free path</h3>
+          <p>Start with Snowflake's own on-demand courses. Built by Snowflake, aligned to their own exam blueprint. No reason to pay before this is exhausted.</p>
+          <span class="pipe-tag">learn.snowflake.com</span>
+        </div>
+      </div>
+      <div class="pipe-node">
+        <div class="pipe-rail"><div class="pipe-dot">03</div></div>
+        <div class="pipe-body">
+          <h3>Read the official exam guide</h3>
+          <p>Domain weights tell you where to spend time. Architecture carries the most weight — study it hardest, not evenly.</p>
+          <span class="pipe-tag">Weighting &rarr; effort</span>
+        </div>
+      </div>
+      <div class="pipe-node">
+        <div class="pipe-rail"><div class="pipe-dot">04</div></div>
+        <div class="pipe-body">
+          <h3>Mine your own job for reps</h3>
+          <p>Warehouses, staging, loading CAPS/EDGE data — you already do core-domain work daily at Argo. That's real experience most candidates don't have.</p>
+          <span class="pipe-tag">Already in motion</span>
+        </div>
+      </div>
+      <div class="pipe-node">
+        <div class="pipe-rail"><div class="pipe-dot">05</div></div>
+        <div class="pipe-body">
+          <h3>Close the net-new gaps</h3>
+          <p>Cortex AI, Dynamic Tables, Iceberg, Git integration — topics that likely aren't part of your daily work yet. These need deliberate reading, not osmosis.</p>
+          <span class="pipe-tag">Deliberate study</span>
+        </div>
+      </div>
+      <div class="pipe-node">
+        <div class="pipe-rail"><div class="pipe-dot">06</div></div>
+        <div class="pipe-body">
+          <h3>Timed practice, final 1&ndash;2 weeks</h3>
+          <p>Simulate the real pressure — 100 questions, 115 minutes, 750 to pass. Practice exams find the weak spots before the $175 attempt does.</p>
+          <span class="pipe-tag">Simulate &amp; verify</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="divider-top">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Domain focus</h2>
+    </div>
+    <p class="section-desc">Five domains on COF-C03, consolidated down from six on the old exam.</p>
+
+    <div class="domain-list">
+      <div class="domain-row">
+        <div class="domain-name">Snowflake AI Data Cloud Architecture</div>
+        <div class="domain-track"><div class="domain-fill" style="width:100%"></div></div>
+        <div class="domain-pct">~31%</div>
+      </div>
+      <div class="domain-row">
+        <div class="domain-name">Account &amp; Virtual Warehouse Management</div>
+        <div class="domain-track"><div class="domain-fill" style="width:62%"></div></div>
+        <div class="domain-pct">high</div>
+      </div>
+      <div class="domain-row">
+        <div class="domain-name">Data Loading, Unloading &amp; Transformation</div>
+        <div class="domain-track"><div class="domain-fill" style="width:62%"></div></div>
+        <div class="domain-pct">high</div>
+      </div>
+      <div class="domain-row">
+        <div class="domain-name">Performance Monitoring &amp; Optimization</div>
+        <div class="domain-track"><div class="domain-fill" style="width:45%"></div></div>
+        <div class="domain-pct">mod.</div>
+      </div>
+      <div class="domain-row">
+        <div class="domain-name">Data Collaboration, Protection &amp; Connectivity</div>
+        <div class="domain-track"><div class="domain-fill" style="width:45%"></div></div>
+        <div class="domain-pct">mod.</div>
+      </div>
+    </div>
+    <p class="domain-note">Architecture weight per multiple third-party COF-C03 study guides (~31%, up from 25% on COF-C02). Snowflake doesn't publish an official per-domain percentage breakdown — treat the rest as relative, not exact.</p>
+
+    <div class="new-topics">
+      <span class="new-topic">+ Cortex AI</span>
+      <span class="new-topic">+ Snowpipe Streaming</span>
+      <span class="new-topic">+ Dynamic Tables</span>
+      <span class="new-topic">+ Apache Iceberg</span>
+      <span class="new-topic">+ Data Clean Rooms</span>
+      <span class="new-topic">+ Trust Center</span>
+      <span class="new-topic">+ Git Integration</span>
+      <span class="new-topic">+ Data Lineage</span>
+    </div>
+  </section>
+
+  <section class="divider-top">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Official links</h2>
+    </div>
+    <p class="section-desc">Straight to the source — no reseller courses needed to get started.</p>
+
+    <div class="link-grid">
+      <a class="link-card" href="https://learn.snowflake.com/en/certifications/snowpro-core-c03/" target="_blank" rel="noopener">
+        <div class="link-eyebrow">Exam overview</div>
+        <div class="link-title">SnowPro Core (COF-C03)</div>
+        <div class="link-desc">Official certification page — scope, candidate requirements, register link.</div>
+      </a>
+      <a class="link-card" href="https://learn.snowflake.com/en/" target="_blank" rel="noopener">
+        <div class="link-eyebrow">Free training</div>
+        <div class="link-title">Snowflake University</div>
+        <div class="link-desc">Learning tracks and on-demand courses built by Snowflake Education Services.</div>
+      </a>
+      <a class="link-card" href="https://www.snowflake.com/en/developers/northstar/" target="_blank" rel="noopener">
+        <div class="link-eyebrow">Guided track</div>
+        <div class="link-title">Northstar Education Program</div>
+        <div class="link-desc">Three-course track covering all COF-C03 domains — complete it for a $50 exam voucher.</div>
+      </a>
+      <a class="link-card" href="https://learn.snowflake.com/en/pages/snowpro-examreg/" target="_blank" rel="noopener">
+        <div class="link-eyebrow">Registration</div>
+        <div class="link-title">SnowPro Registration Steps</div>
+        <div class="link-desc">How to create your Certification Portal account and schedule with Pearson VUE.</div>
+      </a>
+      <a class="link-card" href="https://learn.snowflake.com/en/faqs/certification-faqs/" target="_blank" rel="noopener">
+        <div class="link-eyebrow">Reference</div>
+        <div class="link-title">SnowPro FAQs</div>
+        <div class="link-desc">Retake policy, ID requirements, rescheduling, and other exam-day logistics.</div>
+      </a>
+      <a class="link-card" href="https://www.pearsonvue.com/us/en/snowflake.html" target="_blank" rel="noopener">
+        <div class="link-eyebrow">Test delivery</div>
+        <div class="link-title">Pearson VUE — Snowflake</div>
+        <div class="link-desc">Choose online proctored (OnVUE) or an in-person testing center near Oakland/NYC.</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="divider-top">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Progress</h2>
+    </div>
+    <p class="section-desc">Click to check off as you go. Resets if you reload — treat this as a visual, log actual progress wherever you're tracking the character sheet.</p>
+
+    <div class="checklist" id="checklist">
+      <div class="check-item" data-key="c1">
+        <div class="check-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1.5 6L4.5 9L10.5 2.5" stroke="#0b1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-text">Create Snowflake Certification Portal account</div>
+      </div>
+      <div class="check-item" data-key="c2">
+        <div class="check-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1.5 6L4.5 9L10.5 2.5" stroke="#0b1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-text">Read the official COF-C03 exam guide top to bottom</div>
+      </div>
+      <div class="check-item" data-key="c3">
+        <div class="check-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1.5 6L4.5 9L10.5 2.5" stroke="#0b1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-text">Complete Snowflake University's Architecture course</div>
+      </div>
+      <div class="check-item" data-key="c4">
+        <div class="check-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1.5 6L4.5 9L10.5 2.5" stroke="#0b1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-text">Build one small lab each for Cortex, Dynamic Tables, and Iceberg</div>
+      </div>
+      <div class="check-item" data-key="c5">
+        <div class="check-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1.5 6L4.5 9L10.5 2.5" stroke="#0b1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-text">Finish the Northstar three-course track ($50 voucher)</div>
+      </div>
+      <div class="check-item" data-key="c6">
+        <div class="check-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1.5 6L4.5 9L10.5 2.5" stroke="#0b1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-text">Sit 2+ timed practice exams, scoring consistently above 750</div>
+      </div>
+      <div class="check-item" data-key="c7">
+        <div class="check-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1.5 6L4.5 9L10.5 2.5" stroke="#0b1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-text">Schedule and sit the real exam</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-note">Built for Kunal &middot; last updated manually, not automatically</div>
+    <div class="craft-badge">CRAFT +1 ON COMPLETION</div>
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('.check-item').forEach(item => {
+    const key = 'snowpro_' + item.dataset.key;
+    if(localStorage.getItem(key) === '1'){ item.classList.add('done'); }
+    item.addEventListener('click', () => {
+      item.classList.toggle('done');
+      try{
+        localStorage.setItem(key, item.classList.contains('done') ? '1' : '0');
+      }catch(e){}
+    });
+  });
+</script>
+
+</body>
+</html>
