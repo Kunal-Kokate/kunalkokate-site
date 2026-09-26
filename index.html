@@ -3,591 +3,734 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SnowPro Core Roadmap — Kunal Kokate</title>
+<title>Kunal Kokate</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0b1420;
-    --bg-panel:#101d2e;
-    --bg-panel-2:#0e1a29;
-    --grid-line:rgba(127,182,212,0.10);
-    --grid-line-strong:rgba(127,182,212,0.18);
-    --ice:#8fd6e8;
-    --ice-dim:#4f8fa6;
-    --amber:#e8a15c;
-    --green:#7ecb9e;
-    --text:#eef3f7;
-    --text-mute:#8ea0b3;
-    --text-faint:#5b6d80;
-    --border:#1c2c40;
+    --bg:#05070d;
+    --bg-card:#0d1117;
+    --bg-card-hover:#121a24;
+    --border:#1c2530;
+    --border-light:#2a3542;
+    --cyan:#67e8f9;
+    --cyan-dim:#2c8fa1;
+    --violet:#a78bfa;
+    --violet-dim:#6b5b9e;
+    --amber:#f5b768;
+    --green:#7ee0a8;
+    --text:#eef2f7;
+    --text-mute:#8b98a8;
+    --text-faint:#4d5a6b;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
-    background:var(--bg);
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -5%, rgba(103,232,249,0.07), transparent),
+      radial-gradient(ellipse 900px 500px at 90% 10%, rgba(167,139,250,0.06), transparent),
+      var(--bg);
     color:var(--text);
-    font-family:'IBM Plex Sans', sans-serif;
-    line-height:1.55;
-    background-image:
-      linear-gradient(var(--grid-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-    background-size: 48px 48px;
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    min-height:100vh;
   }
   .display{font-family:'Space Grotesk', sans-serif;}
   .mono{font-family:'IBM Plex Mono', monospace;}
-  a{color:var(--ice); text-decoration:none;}
+  a{color:var(--cyan); text-decoration:none;}
   a:hover{text-decoration:underline;}
-  a:focus-visible, button:focus-visible{outline:2px solid var(--ice); outline-offset:3px;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--cyan); outline-offset:2px;}
+  ::selection{background:rgba(103,232,249,0.25);}
 
-  .wrap{max-width:1000px; margin:0 auto; padding:0 24px;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- NAV ---------- */
+  nav.topnav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(5,7,13,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:920px; margin:0 auto; padding:14px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:16px;
+  }
+  .brand{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:16px;
+    color:var(--text);
+    white-space:nowrap;
+  }
+  .brand .dot{color:var(--cyan);}
+  .tabs{
+    display:flex;
+    gap:4px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--text-mute);
+    background:transparent;
+    border:1px solid transparent;
+    padding:7px 13px;
+    border-radius:6px;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:all 0.15s ease;
+  }
+  .tab-btn:hover{color:var(--text); background:rgba(255,255,255,0.04);}
+  .tab-btn.active{
+    color:var(--cyan);
+    background:rgba(103,232,249,0.08);
+    border-color:rgba(103,232,249,0.25);
+  }
 
   /* ---------- HERO ---------- */
   header.hero{
-    padding:88px 0 64px;
-    border-bottom:1px solid var(--border);
-    position:relative;
+    padding:64px 0 40px;
+    text-align:center;
   }
-  .tag-row{
-    display:flex; gap:10px; flex-wrap:wrap;
-    margin-bottom:28px;
-  }
-  .tag{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    letter-spacing:0.06em;
-    color:var(--ice);
-    border:1px solid var(--ice-dim);
-    padding:5px 10px;
-    border-radius:3px;
-    background:rgba(143,214,232,0.06);
-  }
-  h1.title{
-    font-size:clamp(34px, 5.4vw, 58px);
-    font-weight:700;
-    letter-spacing:-0.02em;
-    line-height:1.05;
-    max-width:820px;
-  }
-  h1.title .accent{color:var(--ice);}
-  .subtitle{
-    margin-top:18px;
-    font-size:17px;
-    color:var(--text-mute);
-    max-width:600px;
-  }
-  .stat-strip{
-    margin-top:44px;
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    border:1px solid var(--border);
-    border-radius:6px;
-    overflow:hidden;
-    background:var(--bg-panel);
-  }
-  .stat{
-    padding:18px 20px;
-    border-right:1px solid var(--border);
-  }
-  .stat:last-child{border-right:none;}
-  .stat-label{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:10px;
-    letter-spacing:0.08em;
-    color:var(--text-faint);
-    text-transform:uppercase;
-  }
-  .stat-value{
-    margin-top:6px;
-    font-family:'Space Grotesk', sans-serif;
-    font-size:22px;
-    font-weight:600;
-    color:var(--text);
-  }
-
-  /* ---------- SECTION HEADERS ---------- */
-  section{padding:64px 0;}
-  section.divider-top{border-top:1px solid var(--border);}
-  .section-head{
-    display:flex;
-    align-items:baseline;
-    gap:14px;
-    margin-bottom:8px;
-  }
-  .section-num{
+  .status-line{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
     font-family:'IBM Plex Mono', monospace;
     font-size:12px;
-    color:var(--amber);
+    color:var(--text-mute);
+    border:1px solid var(--border-light);
+    background:var(--bg-card);
+    padding:7px 14px;
+    border-radius:999px;
+    margin-bottom:26px;
   }
-  h2.section-title{
+  .status-dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 8px var(--green);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1;}
+    50%{opacity:0.4;}
+  }
+  h1.name{
+    font-size:clamp(38px, 6vw, 62px);
+    font-weight:700;
+    letter-spacing:-0.02em;
+  }
+  .tagline{
+    margin-top:14px;
+    font-size:17px;
+    color:var(--text-mute);
+    max-width:520px;
+    margin-left:auto; margin-right:auto;
+  }
+  .tagline .type-cursor{
+    display:inline-block;
+    width:2px; height:1em;
+    background:var(--cyan);
+    vertical-align:text-bottom;
+    animation:blink 1s step-start infinite;
+    margin-left:2px;
+  }
+  @keyframes blink{50%{opacity:0;}}
+  .hero-links{
+    margin-top:24px;
+    display:flex; gap:14px; justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+  }
+  .hero-links a{color:var(--text-mute); border-bottom:1px solid transparent;}
+  .hero-links a:hover{color:var(--cyan); text-decoration:none; border-bottom:1px solid var(--cyan);}
+
+  /* ---------- PANELS ---------- */
+  .panel{display:none; padding:8px 0 80px; animation:fadeIn 0.35s ease;}
+  .panel.active{display:block;}
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+  .panel-head{margin-bottom:28px;}
+  .panel-eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    color:var(--violet);
+    text-transform:uppercase;
+  }
+  .panel-title{
     font-family:'Space Grotesk', sans-serif;
     font-size:26px;
     font-weight:600;
+    margin-top:6px;
   }
-  .section-desc{
+  .panel-desc{
     color:var(--text-mute);
-    max-width:620px;
-    margin-bottom:40px;
-    font-size:15px;
+    margin-top:8px;
+    font-size:14.5px;
+    max-width:560px;
   }
-
-  /* ---------- PIPELINE ---------- */
-  .pipeline{
-    position:relative;
-    display:flex;
-    flex-direction:column;
-    gap:0;
-  }
-  .pipe-node{
-    display:grid;
-    grid-template-columns:56px 1fr;
-    gap:20px;
-    position:relative;
-    padding-bottom:36px;
-  }
-  .pipe-node:last-child{padding-bottom:0;}
-  .pipe-rail{
-    position:relative;
-    display:flex;
-    justify-content:center;
-  }
-  .pipe-rail::before{
-    content:'';
-    position:absolute;
-    top:34px;
-    bottom:-36px;
-    width:1px;
-    background:linear-gradient(var(--ice-dim), var(--border));
-  }
-  .pipe-node:last-child .pipe-rail::before{display:none;}
-  .pipe-dot{
-    width:34px; height:34px;
-    border-radius:50%;
-    border:1.5px solid var(--ice-dim);
-    background:var(--bg-panel);
-    display:flex; align-items:center; justify-content:center;
+  .updated-tag{
     font-family:'IBM Plex Mono', monospace;
     font-size:11px;
-    color:var(--ice);
-    z-index:1;
-  }
-  .pipe-body{
-    background:var(--bg-panel);
-    border:1px solid var(--border);
-    border-radius:8px;
-    padding:20px 22px;
-  }
-  .pipe-body h3{
-    font-family:'Space Grotesk', sans-serif;
-    font-size:17px;
-    font-weight:600;
-    margin-bottom:8px;
-  }
-  .pipe-body p{
-    color:var(--text-mute);
-    font-size:14.5px;
-  }
-  .pipe-tag{
-    display:inline-block;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:10px;
-    letter-spacing:0.05em;
     color:var(--text-faint);
-    margin-top:12px;
-    text-transform:uppercase;
+    margin-top:10px;
   }
 
-  /* ---------- DOMAINS ---------- */
-  .domain-list{display:flex; flex-direction:column; gap:14px;}
-  .domain-row{
+  /* ---------- NOW GRID ---------- */
+  .now-grid{
     display:grid;
-    grid-template-columns:1fr 180px 60px;
-    align-items:center;
-    gap:16px;
-  }
-  .domain-name{font-size:14.5px;}
-  .domain-track{
-    height:8px;
-    background:var(--bg-panel-2);
-    border:1px solid var(--border);
-    border-radius:4px;
-    overflow:hidden;
-  }
-  .domain-fill{
-    height:100%;
-    background:linear-gradient(90deg, var(--ice-dim), var(--ice));
-    border-radius:4px;
-  }
-  .domain-pct{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    color:var(--text-mute);
-    text-align:right;
-  }
-  .domain-note{
-    margin-top:22px;
-    font-size:12.5px;
-    color:var(--text-faint);
-    font-family:'IBM Plex Mono', monospace;
-    line-height:1.6;
-  }
-  .new-topics{
-    margin-top:28px;
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-  }
-  .new-topic{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11.5px;
-    color:var(--green);
-    border:1px solid #2c5943;
-    background:rgba(126,203,158,0.06);
-    padding:5px 10px;
-    border-radius:3px;
-  }
-
-  /* ---------- LINKS ---------- */
-  .link-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
     gap:14px;
+    margin-top:28px;
   }
-  .link-card{
+  .now-card{
+    background:var(--bg-card);
     border:1px solid var(--border);
-    background:var(--bg-panel);
-    border-radius:8px;
-    padding:18px 20px;
-    display:block;
-    transition:border-color 0.15s ease, transform 0.15s ease;
+    border-radius:10px;
+    padding:20px;
   }
-  .link-card:hover{
-    border-color:var(--ice-dim);
-    text-decoration:none;
-    transform:translateY(-1px);
+  .now-card .icon{font-size:20px;}
+  .now-card h4{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:15px;
+    margin-top:10px;
   }
-  .link-eyebrow{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:10px;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    color:var(--amber);
-  }
-  .link-title{
+  .now-card p{
+    font-size:13px;
+    color:var(--text-mute);
     margin-top:6px;
+  }
+
+  /* ---------- PROJECT CARDS ---------- */
+  .project-list{display:flex; flex-direction:column; gap:12px;}
+  .project-card{
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:18px 20px;
+    cursor:pointer;
+    transition:border-color 0.15s ease, background 0.15s ease;
+  }
+  .project-card:hover{border-color:var(--border-light); background:var(--bg-card-hover);}
+  .project-top{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+  }
+  .project-title-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .project-title{
     font-family:'Space Grotesk', sans-serif;
     font-size:16px;
     font-weight:600;
-    color:var(--text);
   }
-  .link-desc{
-    margin-top:6px;
-    font-size:13px;
-    color:var(--text-mute);
+  .badge{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.04em;
+    padding:3px 9px;
+    border-radius:99px;
+    text-transform:uppercase;
+  }
+  .badge.live{color:var(--green); background:rgba(126,224,168,0.1); border:1px solid rgba(126,224,168,0.3);}
+  .badge.progress{color:var(--amber); background:rgba(245,183,104,0.1); border:1px solid rgba(245,183,104,0.3);}
+  .badge.planning{color:var(--text-mute); background:rgba(255,255,255,0.04); border:1px solid var(--border-light);}
+  .chevron{
+    color:var(--text-faint);
+    transition:transform 0.2s ease;
+    flex-shrink:0;
+  }
+  .project-card.open .chevron{transform:rotate(180deg);}
+  .project-body{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.3s ease, margin-top 0.3s ease;
+  }
+  .project-card.open .project-body{max-height:200px; margin-top:14px;}
+  .project-body p{font-size:13.5px; color:var(--text-mute); line-height:1.6;}
+  .tech-tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px;}
+  .tech-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    color:var(--cyan-dim);
+    border:1px solid rgba(103,232,249,0.2);
+    padding:3px 8px;
+    border-radius:4px;
+  }
+  .project-link{
+    display:inline-block;
+    margin-top:12px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
   }
 
-  /* ---------- CHECKLIST ---------- */
-  .checklist{
+  /* ---------- GOALS ---------- */
+  .goal-list{display:flex; flex-direction:column; gap:10px;}
+  .goal-item{
+    display:flex; align-items:center; gap:14px;
+    background:var(--bg-card);
     border:1px solid var(--border);
     border-radius:8px;
-    background:var(--bg-panel);
+    padding:14px 18px;
+  }
+  .goal-check{
+    width:20px; height:20px;
+    border-radius:50%;
+    border:1.5px solid var(--border-light);
+    flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .goal-check.done{background:var(--green); border-color:var(--green);}
+  .goal-check.progress{border-color:var(--amber);}
+  .goal-check.progress::after{
+    content:''; width:8px; height:8px; border-radius:50%; background:var(--amber);
+  }
+  .goal-text{font-size:14.5px;}
+  .goal-text .sub{display:block; font-size:12px; color:var(--text-faint); margin-top:2px;}
+  .goal-item.done .goal-text{color:var(--text-mute); text-decoration:line-through; text-decoration-color:var(--border-light);}
+
+  /* ---------- STATS / CHARACTER SHEET ---------- */
+  .stat-panel{
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:26px;
+  }
+  .stat-row{margin-bottom:22px;}
+  .stat-row:last-child{margin-bottom:0;}
+  .stat-label-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin-bottom:8px;
+    cursor:pointer;
+  }
+  .stat-name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .stat-value{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:var(--text-mute);
+  }
+  .stat-track{
+    height:10px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid var(--border);
+    border-radius:6px;
     overflow:hidden;
   }
-  .check-item{
-    display:flex;
-    align-items:flex-start;
-    gap:14px;
-    padding:16px 20px;
-    border-bottom:1px solid var(--border);
-    cursor:pointer;
-    user-select:none;
+  .stat-fill{
+    height:100%;
+    border-radius:6px;
+    width:0%;
+    transition:width 1.1s cubic-bezier(0.16,1,0.3,1);
   }
-  .check-item:last-child{border-bottom:none;}
-  .check-box{
-    width:18px; height:18px;
-    border:1.5px solid var(--ice-dim);
-    border-radius:4px;
-    flex-shrink:0;
-    margin-top:2px;
-    display:flex; align-items:center; justify-content:center;
-    transition:background 0.15s ease, border-color 0.15s ease;
+  .stat-fill.sql{background:linear-gradient(90deg, var(--cyan-dim), var(--cyan));}
+  .stat-fill.python{background:linear-gradient(90deg, var(--violet-dim), var(--violet));}
+  .stat-fill.circuits{background:linear-gradient(90deg, #8a6a3a, var(--amber));}
+  .stat-fill.ai{background:linear-gradient(90deg, #3a8a5f, var(--green));}
+  .stat-fill.guitar{background:linear-gradient(90deg, #4a5568, #8b98a8);}
+  .stat-detail{
+    max-height:0; overflow:hidden;
+    transition:max-height 0.3s ease, margin-top 0.3s ease;
+    font-size:13px; color:var(--text-mute);
   }
-  .check-box svg{opacity:0; transition:opacity 0.15s ease;}
-  .check-item.done .check-box{background:var(--ice); border-color:var(--ice);}
-  .check-item.done .check-box svg{opacity:1;}
-  .check-item.done .check-text{color:var(--text-faint); text-decoration:line-through;}
-  .check-text{font-size:14.5px;}
+  .stat-row.open .stat-detail{max-height:80px; margin-top:10px;}
+
+  /* ---------- STATS: UNDER CONSTRUCTION ---------- */
+  .construction-panel{
+    background:var(--bg-card);
+    border:1px dashed var(--border-light);
+    border-radius:12px;
+    padding:48px 26px;
+    text-align:center;
+  }
+  .construction-icon{font-size:26px; margin-bottom:12px;}
+  .construction-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:16px;
+    color:var(--text-mute);
+  }
+  .construction-text{
+    font-size:13px;
+    color:var(--text-faint);
+    margin-top:6px;
+  }
+
+  /* ---------- LOG ---------- */
+  .log-list{
+    border-left:2px solid var(--border);
+    margin-left:6px;
+    padding-left:24px;
+    display:flex; flex-direction:column; gap:22px;
+  }
+  .log-item{position:relative;}
+  .log-item::before{
+    content:'';
+    position:absolute; left:-30px; top:4px;
+    width:10px; height:10px; border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--cyan);
+  }
+  .log-date{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--text-faint);
+  }
+  .log-text{font-size:14px; margin-top:4px;}
 
   /* ---------- FOOTER ---------- */
   footer{
     border-top:1px solid var(--border);
-    padding:40px 0 64px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:16px;
+    padding:32px 0 56px;
+    text-align:center;
   }
   .footer-note{
     font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
+    font-size:11.5px;
     color:var(--text-faint);
-  }
-  .craft-badge{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    color:var(--amber);
-    border:1px solid #6b4a26;
-    background:rgba(232,161,92,0.06);
-    padding:6px 12px;
-    border-radius:3px;
   }
 
   @media (max-width:640px){
-    .stat-strip{grid-template-columns:repeat(2, 1fr);}
-    .stat:nth-child(2){border-right:none;}
-    .stat:nth-child(1), .stat:nth-child(2){border-bottom:1px solid var(--border);}
-    .link-grid{grid-template-columns:1fr;}
-    .domain-row{grid-template-columns:1fr 100px 44px; gap:10px;}
-    header.hero{padding:56px 0 44px;}
+    .now-grid{grid-template-columns:1fr;}
+    .nav-inner{flex-direction:column; align-items:flex-start; gap:10px;}
+    .tabs{width:100%;}
+    header.hero{padding:44px 0 32px;}
   }
 </style>
 </head>
 <body>
 
+<nav class="topnav">
+  <div class="nav-inner">
+    <div class="brand">Kunal<span class="dot">.</span>Kokate</div>
+    <div class="tabs" id="tabs">
+      <button class="tab-btn active" data-panel="now">Now</button>
+      <button class="tab-btn" data-panel="building">Building</button>
+      <button class="tab-btn" data-panel="goals">Goals</button>
+      <button class="tab-btn" data-panel="stats">Stats</button>
+      <button class="tab-btn" data-panel="log">Log</button>
+    </div>
+  </div>
+</nav>
+
 <div class="wrap">
   <header class="hero">
-    <div class="tag-row">
-      <span class="tag">COF&#8209;C03</span>
-      <span class="tag">CRAFT STAT &middot; LEVEL UP</span>
+    <div class="status-line">
+      <span class="status-dot"></span>
+      <span id="status-text">messing with an Elegoo UNO R3</span>
     </div>
-    <h1 class="title">SnowPro Core<br><span class="accent">Study Roadmap</span></h1>
-    <p class="subtitle">A working path to the current Snowflake certification — built around what you already do at Argo, plus the gaps to close before test day.</p>
-
-    <div class="stat-strip">
-      <div class="stat">
-        <div class="stat-label">Cost</div>
-        <div class="stat-value">$175</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Format</div>
-        <div class="stat-value">100 Q / 115 min</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Passing score</div>
-        <div class="stat-value">750 / 1000</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Valid for</div>
-        <div class="stat-value">2 years</div>
-      </div>
+    <h1 class="name display">Kunal Kokate</h1>
+    <p class="tagline">Database developer, always working on something.<br>This page is where I keep track of it.<span class="type-cursor"></span></p>
+    <div class="hero-links">
+      <a href="https://www.linkedin.com/in/kunalkokate/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Kunal-Kokate" target="_blank" rel="noopener">GitHub</a>
     </div>
   </header>
 
-  <section class="divider-top">
-    <div class="section-head">
-      <span class="section-num">01</span>
-      <h2 class="section-title">The pipeline</h2>
+  <!-- NOW -->
+  <section class="panel active" id="panel-now">
+    <div class="panel-head">
+      <div class="panel-eyebrow">// current focus</div>
+      <h2 class="panel-title">Now</h2>
+      <p class="panel-desc">What's actually taking up my time and attention this month.</p>
+      <div class="updated-tag" id="now-updated">last edited manually — update the date in the source when you change this</div>
     </div>
-    <p class="section-desc">Six stages, same way you'd stage a real data load — source, transform, validate, ship.</p>
 
-    <div class="pipeline">
-      <div class="pipe-node">
-        <div class="pipe-rail"><div class="pipe-dot">01</div></div>
-        <div class="pipe-body">
-          <h3>Confirm you're on COF-C03</h3>
-          <p>The old COF-C02 exam retired in 2026. Any material that doesn't say COF-C03 explicitly is stale — wrong domain weights, missing topics.</p>
-          <span class="pipe-tag">Source check</span>
+    <div class="now-grid">
+      <div class="now-card">
+        <div class="icon">💼</div>
+        <h4>Career</h4>
+        <p>Database Developer at Argo Group, working in Snowflake.</p>
+      </div>
+      <div class="now-card">
+        <div class="icon">🧊</div>
+        <h4>Certs & Courses</h4>
+        <p>Want to get the SnowPro Core (COF-C03) cert and the dbt Fundamentals certification. Haven't started either yet.</p>
+      </div>
+      <div class="now-card">
+        <div class="icon">🔌</div>
+        <h4>Circuits</h4>
+        <p>Just picked up an Elegoo UNO R3 kit and I'm messing around with basic circuits and electronics.</p>
+      </div>
+      <div class="now-card">
+        <div class="icon">🤖</div>
+        <h4>AI</h4>
+        <p>Digging into how AI/ML actually works under the hood, not just using the tools.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUILDING -->
+  <section class="panel" id="panel-building">
+    <div class="panel-head">
+      <div class="panel-eyebrow">// in progress</div>
+      <h2 class="panel-title">Building</h2>
+      <p class="panel-desc">Projects I'm actively working on or planning. Click to expand.</p>
+    </div>
+
+    <div class="project-list" id="project-list">
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title-row">
+            <span class="project-title">This Website</span>
+            <span class="badge live">Live</span>
+          </div>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="project-body">
+          <p>A public "now page" style site, hosted free on GitHub Pages, pointed at my own domain. Built to track what I'm actually doing instead of just listing a resume.</p>
+          <div class="tech-tags"><span class="tech-tag">HTML/CSS/JS</span><span class="tech-tag">GitHub Pages</span></div>
         </div>
       </div>
-      <div class="pipe-node">
-        <div class="pipe-rail"><div class="pipe-dot">02</div></div>
-        <div class="pipe-body">
-          <h3>Snowflake University — free path</h3>
-          <p>Start with Snowflake's own on-demand courses. Built by Snowflake, aligned to their own exam blueprint. No reason to pay before this is exhausted.</p>
-          <span class="pipe-tag">learn.snowflake.com</span>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title-row">
+            <span class="project-title">SnowPro Core Certification</span>
+            <span class="badge planning">Planned</span>
+          </div>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="project-body">
+          <p>Want to get the current COF-C03 exam done — architecture, warehouse management, data loading, and the newer Cortex AI / Dynamic Tables topics. No set timeline yet.</p>
         </div>
       </div>
-      <div class="pipe-node">
-        <div class="pipe-rail"><div class="pipe-dot">03</div></div>
-        <div class="pipe-body">
-          <h3>Read the official exam guide</h3>
-          <p>Domain weights tell you where to spend time. Architecture carries the most weight — study it hardest, not evenly.</p>
-          <span class="pipe-tag">Weighting &rarr; effort</span>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title-row">
+            <span class="project-title">dbt Fundamentals Certification</span>
+            <span class="badge planning">Planned</span>
+          </div>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="project-body">
+          <p>Want to get the dbt Fundamentals certification. Haven't started yet, no set timeline.</p>
         </div>
       </div>
-      <div class="pipe-node">
-        <div class="pipe-rail"><div class="pipe-dot">04</div></div>
-        <div class="pipe-body">
-          <h3>Mine your own job for reps</h3>
-          <p>Warehouses, staging, loading CAPS/EDGE data — you already do core-domain work daily at Argo. That's real experience most candidates don't have.</p>
-          <span class="pipe-tag">Already in motion</span>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title-row">
+            <span class="project-title">Scroll-Blocker iOS App</span>
+            <span class="badge planning">Planning</span>
+          </div>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="project-body">
+          <p>An app to block Reels/Shorts-style infinite scroll while keeping messaging apps fully usable.</p>
         </div>
       </div>
-      <div class="pipe-node">
-        <div class="pipe-rail"><div class="pipe-dot">05</div></div>
-        <div class="pipe-body">
-          <h3>Close the net-new gaps</h3>
-          <p>Cortex AI, Dynamic Tables, Iceberg, Git integration — topics that likely aren't part of your daily work yet. These need deliberate reading, not osmosis.</p>
-          <span class="pipe-tag">Deliberate study</span>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title-row">
+            <span class="project-title">Travel Tracker App</span>
+            <span class="badge planning">Planning</span>
+          </div>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="project-body">
+          <p>An app to track which countries and cities I've actually been to. Still just an idea at this point.</p>
         </div>
       </div>
-      <div class="pipe-node">
-        <div class="pipe-rail"><div class="pipe-dot">06</div></div>
-        <div class="pipe-body">
-          <h3>Timed practice, final 1&ndash;2 weeks</h3>
-          <p>Simulate the real pressure — 100 questions, 115 minutes, 750 to pass. Practice exams find the weak spots before the $175 attempt does.</p>
-          <span class="pipe-tag">Simulate &amp; verify</span>
+
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-title-row">
+            <span class="project-title">Energy Drink Tier List</span>
+            <span class="badge planning">Planning</span>
+          </div>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="project-body">
+          <p>A completely unserious, very serious ranking of every energy drink I've tried. Yes, this needs its own tier list.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="divider-top">
-    <div class="section-head">
-      <span class="section-num">02</span>
-      <h2 class="section-title">Domain focus</h2>
+  <!-- GOALS -->
+  <section class="panel" id="panel-goals">
+    <div class="panel-head">
+      <div class="panel-eyebrow">// where this is going</div>
+      <h2 class="panel-title">Goals</h2>
+      <p class="panel-desc">Things I'm working toward, not all with deadlines.</p>
     </div>
-    <p class="section-desc">Five domains on COF-C03, consolidated down from six on the old exam.</p>
 
-    <div class="domain-list">
-      <div class="domain-row">
-        <div class="domain-name">Snowflake AI Data Cloud Architecture</div>
-        <div class="domain-track"><div class="domain-fill" style="width:100%"></div></div>
-        <div class="domain-pct">~31%</div>
+    <div class="goal-list">
+      <div class="goal-item">
+        <div class="goal-check"></div>
+        <div class="goal-text">Pass the SnowPro Core certification<span class="sub">Planned, no timeline yet</span></div>
       </div>
-      <div class="domain-row">
-        <div class="domain-name">Account &amp; Virtual Warehouse Management</div>
-        <div class="domain-track"><div class="domain-fill" style="width:62%"></div></div>
-        <div class="domain-pct">high</div>
+      <div class="goal-item">
+        <div class="goal-check"></div>
+        <div class="goal-text">Learn guitar<span class="sub">On my own, not started yet</span></div>
       </div>
-      <div class="domain-row">
-        <div class="domain-name">Data Loading, Unloading &amp; Transformation</div>
-        <div class="domain-track"><div class="domain-fill" style="width:62%"></div></div>
-        <div class="domain-pct">high</div>
+      <div class="goal-item">
+        <div class="goal-check"></div>
+        <div class="goal-text">Ship at least one personal app end to end<span class="sub">Scroll-blocker or the travel tracker, whichever comes first</span></div>
       </div>
-      <div class="domain-row">
-        <div class="domain-name">Performance Monitoring &amp; Optimization</div>
-        <div class="domain-track"><div class="domain-fill" style="width:45%"></div></div>
-        <div class="domain-pct">mod.</div>
+      <div class="goal-item">
+        <div class="goal-check"></div>
+        <div class="goal-text">Build something with AI<span class="sub">Still figuring out what</span></div>
       </div>
-      <div class="domain-row">
-        <div class="domain-name">Data Collaboration, Protection &amp; Connectivity</div>
-        <div class="domain-track"><div class="domain-fill" style="width:45%"></div></div>
-        <div class="domain-pct">mod.</div>
+      <div class="goal-item">
+        <div class="goal-check"></div>
+        <div class="goal-text">Build more with circuits and electronics<span class="sub">Starting with the Elegoo UNO R3</span></div>
       </div>
-    </div>
-    <p class="domain-note">Architecture weight per multiple third-party COF-C03 study guides (~31%, up from 25% on COF-C02). Snowflake doesn't publish an official per-domain percentage breakdown — treat the rest as relative, not exact.</p>
-
-    <div class="new-topics">
-      <span class="new-topic">+ Cortex AI</span>
-      <span class="new-topic">+ Snowpipe Streaming</span>
-      <span class="new-topic">+ Dynamic Tables</span>
-      <span class="new-topic">+ Apache Iceberg</span>
-      <span class="new-topic">+ Data Clean Rooms</span>
-      <span class="new-topic">+ Trust Center</span>
-      <span class="new-topic">+ Git Integration</span>
-      <span class="new-topic">+ Data Lineage</span>
     </div>
   </section>
 
-  <section class="divider-top">
-    <div class="section-head">
-      <span class="section-num">03</span>
-      <h2 class="section-title">Official links</h2>
+  <!-- STATS -->
+  <section class="panel" id="panel-stats">
+    <div class="panel-head">
+      <div class="panel-eyebrow">// skills</div>
+      <h2 class="panel-title">Stats</h2>
+      <p class="panel-desc">A running list of things I'm actively learning or building — still figuring out how to track it right.</p>
     </div>
-    <p class="section-desc">Straight to the source — no reseller courses needed to get started.</p>
 
-    <div class="link-grid">
-      <a class="link-card" href="https://learn.snowflake.com/en/certifications/snowpro-core-c03/" target="_blank" rel="noopener">
-        <div class="link-eyebrow">Exam overview</div>
-        <div class="link-title">SnowPro Core (COF-C03)</div>
-        <div class="link-desc">Official certification page — scope, candidate requirements, register link.</div>
-      </a>
-      <a class="link-card" href="https://learn.snowflake.com/en/" target="_blank" rel="noopener">
-        <div class="link-eyebrow">Free training</div>
-        <div class="link-title">Snowflake University</div>
-        <div class="link-desc">Learning tracks and on-demand courses built by Snowflake Education Services.</div>
-      </a>
-      <a class="link-card" href="https://www.snowflake.com/en/developers/northstar/" target="_blank" rel="noopener">
-        <div class="link-eyebrow">Guided track</div>
-        <div class="link-title">Northstar Education Program</div>
-        <div class="link-desc">Three-course track covering all COF-C03 domains — complete it for a $50 exam voucher.</div>
-      </a>
-      <a class="link-card" href="https://learn.snowflake.com/en/pages/snowpro-examreg/" target="_blank" rel="noopener">
-        <div class="link-eyebrow">Registration</div>
-        <div class="link-title">SnowPro Registration Steps</div>
-        <div class="link-desc">How to create your Certification Portal account and schedule with Pearson VUE.</div>
-      </a>
-      <a class="link-card" href="https://learn.snowflake.com/en/faqs/certification-faqs/" target="_blank" rel="noopener">
-        <div class="link-eyebrow">Reference</div>
-        <div class="link-title">SnowPro FAQs</div>
-        <div class="link-desc">Retake policy, ID requirements, rescheduling, and other exam-day logistics.</div>
-      </a>
-      <a class="link-card" href="https://www.pearsonvue.com/us/en/snowflake.html" target="_blank" rel="noopener">
-        <div class="link-eyebrow">Test delivery</div>
-        <div class="link-title">Pearson VUE — Snowflake</div>
-        <div class="link-desc">Choose online proctored (OnVUE) or an in-person testing center near Oakland/NYC.</div>
-      </a>
+    <div class="construction-panel">
+      <div class="construction-icon">🚧</div>
+      <div class="construction-title">Under construction</div>
+      <p class="construction-text">Working out the right way to track this. Check back later.</p>
     </div>
+
+    <!--
+    Stats content, disabled for now — re-enable by uncommenting and restoring the
+    "Under construction" block above with the .stat-panel block below.
+    <div class="stat-panel">
+      <div class="stat-row" data-detail="Using it daily at work — writing queries, tracing data across systems, picking up more of the platform as I go.">
+        <div class="stat-label-row">
+          <div class="stat-name">🧊 SQL &amp; Snowflake</div>
+          <div class="stat-value">Comfortable</div>
+        </div>
+        <div class="stat-track"><div class="stat-fill sql" data-target="72%"></div></div>
+        <div class="stat-detail"></div>
+      </div>
+
+      <div class="stat-row" data-detail="Solid on the basics, still working up to bigger personal projects outside of work.">
+        <div class="stat-label-row">
+          <div class="stat-name">🐍 Python</div>
+          <div class="stat-value">Learning</div>
+        </div>
+        <div class="stat-track"><div class="stat-fill python" data-target="48%"></div></div>
+        <div class="stat-detail"></div>
+      </div>
+
+      <div class="stat-row" data-detail="Just started — picked up an Elegoo UNO R3 and I'm working through basic circuits from scratch.">
+        <div class="stat-label-row">
+          <div class="stat-name">🔌 Circuits &amp; Electronics</div>
+          <div class="stat-value">Beginner</div>
+        </div>
+        <div class="stat-track"><div class="stat-fill circuits" data-target="20%"></div></div>
+        <div class="stat-detail"></div>
+      </div>
+
+      <div class="stat-row" data-detail="New territory. Started looking into how it actually works under the hood, not just using the tools.">
+        <div class="stat-label-row">
+          <div class="stat-name">🤖 AI / ML</div>
+          <div class="stat-value">Beginner</div>
+        </div>
+        <div class="stat-track"><div class="stat-fill ai" data-target="20%"></div></div>
+        <div class="stat-detail"></div>
+      </div>
+
+      <div class="stat-row" data-detail="Haven't started yet — on the list, planning to learn on my own.">
+        <div class="stat-label-row">
+          <div class="stat-name">🎸 Guitar</div>
+          <div class="stat-value">Not started</div>
+        </div>
+        <div class="stat-track"><div class="stat-fill guitar" data-target="4%"></div></div>
+        <div class="stat-detail"></div>
+      </div>
+    </div>
+    -->
   </section>
 
-  <section class="divider-top">
-    <div class="section-head">
-      <span class="section-num">04</span>
-      <h2 class="section-title">Progress</h2>
+  <!-- LOG -->
+  <section class="panel" id="panel-log">
+    <div class="panel-head">
+      <div class="panel-eyebrow">// changelog</div>
+      <h2 class="panel-title">Log</h2>
+      <p class="panel-desc">Dated entries, oldest habit I have from work — keep a running record instead of trusting memory.</p>
     </div>
-    <p class="section-desc">Click to check off as you go. Resets if you reload — treat this as a visual, log actual progress wherever you're tracking the character sheet.</p>
 
-    <div class="checklist" id="checklist">
-      <div class="check-item" data-key="c1">
-        <div class="check-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1.5 6L4.5 9L10.5 2.5" stroke="#0b1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="check-text">Create Snowflake Certification Portal account</div>
-      </div>
-      <div class="check-item" data-key="c2">
-        <div class="check-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1.5 6L4.5 9L10.5 2.5" stroke="#0b1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="check-text">Read the official COF-C03 exam guide top to bottom</div>
-      </div>
-      <div class="check-item" data-key="c3">
-        <div class="check-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1.5 6L4.5 9L10.5 2.5" stroke="#0b1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="check-text">Complete Snowflake University's Architecture course</div>
-      </div>
-      <div class="check-item" data-key="c4">
-        <div class="check-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1.5 6L4.5 9L10.5 2.5" stroke="#0b1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="check-text">Build one small lab each for Cortex, Dynamic Tables, and Iceberg</div>
-      </div>
-      <div class="check-item" data-key="c5">
-        <div class="check-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1.5 6L4.5 9L10.5 2.5" stroke="#0b1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="check-text">Finish the Northstar three-course track ($50 voucher)</div>
-      </div>
-      <div class="check-item" data-key="c6">
-        <div class="check-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1.5 6L4.5 9L10.5 2.5" stroke="#0b1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="check-text">Sit 2+ timed practice exams, scoring consistently above 750</div>
-      </div>
-      <div class="check-item" data-key="c7">
-        <div class="check-box"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M1.5 6L4.5 9L10.5 2.5" stroke="#0b1420" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="check-text">Schedule and sit the real exam</div>
+    <div class="log-list">
+      <div class="log-item">
+        <div class="log-date">2026-09-26</div>
+        <div class="log-text">Site is live. Started tracking stats and goals here instead of just in my head.</div>
       </div>
     </div>
   </section>
 
   <footer>
-    <div class="footer-note">Built for Kunal &middot; last updated manually, not automatically</div>
-    <div class="craft-badge">CRAFT +1 ON COMPLETION</div>
+    <div class="footer-note">Kunal Kokate — updated by hand, not automatically</div>
   </footer>
 </div>
 
 <script>
-  document.querySelectorAll('.check-item').forEach(item => {
-    const key = 'snowpro_' + item.dataset.key;
-    if(localStorage.getItem(key) === '1'){ item.classList.add('done'); }
-    item.addEventListener('click', () => {
-      item.classList.toggle('done');
-      try{
-        localStorage.setItem(key, item.classList.contains('done') ? '1' : '0');
-      }catch(e){}
+  // Tab switching
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.panel');
+  function activateTab(name){
+    tabBtns.forEach(b => b.classList.toggle('active', b.dataset.panel === name));
+    panels.forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+    if(name === 'stats'){ animateStats(); }
+    try{ localStorage.setItem('kk_last_tab', name); }catch(e){}
+  }
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => activateTab(btn.dataset.panel));
+  });
+  // restore last tab
+  try{
+    const last = localStorage.getItem('kk_last_tab');
+    if(last && document.getElementById('panel-' + last)){ activateTab(last); }
+  }catch(e){}
+
+  // Project card expand/collapse
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('open'));
+  });
+
+  // Stat row expand/collapse + fill detail text
+  document.querySelectorAll('.stat-row').forEach(row => {
+    const detail = row.querySelector('.stat-detail');
+    detail.textContent = row.dataset.detail;
+    row.querySelector('.stat-label-row').addEventListener('click', () => {
+      row.classList.toggle('open');
     });
   });
+
+  // Animate stat bars when Stats tab is opened
+  let statsAnimated = false;
+  function animateStats(){
+    if(statsAnimated) return;
+    statsAnimated = true;
+    document.querySelectorAll('.stat-fill').forEach(fill => {
+      requestAnimationFrame(() => { fill.style.width = fill.dataset.target; });
+    });
+  }
+  // animate immediately if Now isn't the restored tab and Stats is active on load
+  if(document.getElementById('panel-stats').classList.contains('active')){
+    setTimeout(animateStats, 200);
+  }
+
+  // Typewriter status line
+  const statuses = ["messing with an Elegoo UNO R3", "learning AI from the ground up", "leveling up, one skill at a time"];
+  let si = 0;
+  const statusEl = document.getElementById('status-text');
+  setInterval(() => {
+    si = (si + 1) % statuses.length;
+    statusEl.style.opacity = 0;
+    setTimeout(() => { statusEl.textContent = statuses[si]; statusEl.style.opacity = 1; }, 300);
+  }, 4000);
+  statusEl.style.transition = 'opacity 0.3s ease';
 </script>
 
 </body>
