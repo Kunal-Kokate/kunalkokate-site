@@ -203,16 +203,29 @@
     border-radius:10px;
     padding:20px;
   }
+  .now-card.featured{border-color:rgba(126,224,168,0.35); background:linear-gradient(180deg, rgba(126,224,168,0.06), var(--bg-card) 60%);}
   .now-card .icon{font-size:20px;}
   .now-card h4{
     font-family:'Space Grotesk', sans-serif;
     font-size:15px;
     margin-top:10px;
+    display:flex; align-items:center; gap:8px;
   }
   .now-card p{
     font-size:13px;
     color:var(--text-mute);
     margin-top:6px;
+  }
+  .focus-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:9.5px;
+    letter-spacing:0.04em;
+    color:var(--green);
+    background:rgba(126,224,168,0.1);
+    border:1px solid rgba(126,224,168,0.3);
+    padding:2px 7px;
+    border-radius:99px;
+    text-transform:uppercase;
   }
 
   /* ---------- PROJECT CARDS ---------- */
@@ -226,6 +239,7 @@
     transition:border-color 0.15s ease, background 0.15s ease;
   }
   .project-card:hover{border-color:var(--border-light); background:var(--bg-card-hover);}
+  .project-card.paused{opacity:0.6;}
   .project-top{
     display:flex; align-items:center; justify-content:space-between; gap:12px;
   }
@@ -246,6 +260,7 @@
   .badge.live{color:var(--green); background:rgba(126,224,168,0.1); border:1px solid rgba(126,224,168,0.3);}
   .badge.progress{color:var(--amber); background:rgba(245,183,104,0.1); border:1px solid rgba(245,183,104,0.3);}
   .badge.planning{color:var(--text-mute); background:rgba(255,255,255,0.04); border:1px solid var(--border-light);}
+  .badge.hold{color:var(--text-faint); background:rgba(255,255,255,0.02); border:1px dashed var(--border-light);}
   .chevron{
     color:var(--text-faint);
     transition:transform 0.2s ease;
@@ -284,6 +299,7 @@
     border-radius:8px;
     padding:14px 18px;
   }
+  .goal-item.paused{opacity:0.6;}
   .goal-check{
     width:20px; height:20px;
     border-radius:50%;
@@ -296,6 +312,7 @@
   .goal-check.progress::after{
     content:''; width:8px; height:8px; border-radius:50%; background:var(--amber);
   }
+  .goal-check.hold{border-style:dashed;}
   .goal-text{font-size:14.5px;}
   .goal-text .sub{display:block; font-size:12px; color:var(--text-faint); margin-top:2px;}
   .goal-item.done .goal-text{color:var(--text-mute); text-decoration:line-through; text-decoration-color:var(--border-light);}
@@ -432,7 +449,7 @@
   <header class="hero">
     <div class="status-line">
       <span class="status-dot"></span>
-      <span id="status-text">messing with an Elegoo UNO R3</span>
+      <span id="status-text">learning AI from the ground up</span>
     </div>
     <h1 class="name display">Kunal Kokate</h1>
     <p class="tagline">Database developer, always working on something.<br>This page is where I keep track of it.<span class="type-cursor"></span></p>
@@ -447,11 +464,16 @@
     <div class="panel-head">
       <div class="panel-eyebrow">// current focus</div>
       <h2 class="panel-title">Now</h2>
-      <p class="panel-desc">What's actually taking up my time and attention this month.</p>
-      <div class="updated-tag" id="now-updated">last edited 9/26/2026</div>
+      <p class="panel-desc">Narrowing down to a couple of things instead of spreading across everything. What's actually getting my time this month.</p>
+      <div class="updated-tag" id="now-updated">last edited 10/4/2026</div>
     </div>
 
     <div class="now-grid">
+      <div class="now-card featured">
+        <div class="icon">🤖</div>
+        <h4>AI <span class="focus-tag">Main Focus</span></h4>
+        <p>Digging into how AI/ML actually works under the hood, not just using the tools. This is where most of my time outside work is going right now.</p>
+      </div>
       <div class="now-card">
         <div class="icon">💼</div>
         <h4>Career</h4>
@@ -460,17 +482,7 @@
       <div class="now-card">
         <div class="icon">🧊</div>
         <h4>Certs & Courses</h4>
-        <p>Started the dbt Fundamentals course. Also want to get the SnowPro Core (COF-C03) cert and the Claude Certified Architect – Foundations cert, haven't started those yet.</p>
-      </div>
-      <div class="now-card">
-        <div class="icon">🔌</div>
-        <h4>Circuits</h4>
-        <p>Just picked up an Elegoo UNO R3 kit and I'm messing around with basic circuits and electronics.</p>
-      </div>
-      <div class="now-card">
-        <div class="icon">🤖</div>
-        <h4>AI</h4>
-        <p>Digging into how AI/ML actually works under the hood, not just using the tools.</p>
+        <p>Working through the dbt Fundamentals course. SnowPro Core and the Claude Certified Architect cert are on hold for now while I focus on AI.</p>
       </div>
     </div>
   </section>
@@ -501,19 +513,6 @@
       <div class="project-card">
         <div class="project-top">
           <div class="project-title-row">
-            <span class="project-title">SnowPro Core Certification</span>
-            <span class="badge planning">Planned</span>
-          </div>
-          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </div>
-        <div class="project-body">
-          <p>Want to get the current COF-C03 exam done — architecture, warehouse management, data loading, and the newer Cortex AI / Dynamic Tables topics. No set timeline yet.</p>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-title-row">
             <span class="project-title">dbt Fundamentals Certification</span>
             <span class="badge progress">In Progress</span>
           </div>
@@ -524,16 +523,29 @@
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card paused">
         <div class="project-top">
           <div class="project-title-row">
-            <span class="project-title">Claude Certified Architect – Foundations</span>
-            <span class="badge planning">Planned</span>
+            <span class="project-title">SnowPro Core Certification</span>
+            <span class="badge hold">On Hold</span>
           </div>
           <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </div>
         <div class="project-body">
-          <p>Want to get certified on building with Claude. Haven't started yet, no set timeline.</p>
+          <p>Want to get the current COF-C03 exam done eventually — architecture, warehouse management, data loading, and the newer Cortex AI / Dynamic Tables topics. Paused for now while I focus on AI.</p>
+        </div>
+      </div>
+
+      <div class="project-card paused">
+        <div class="project-top">
+          <div class="project-title-row">
+            <span class="project-title">Claude Certified Architect – Foundations</span>
+            <span class="badge hold">On Hold</span>
+          </div>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="project-body">
+          <p>Want to get certified on building with Claude eventually. Paused for now while I focus on AI.</p>
         </div>
       </div>
 
@@ -563,6 +575,19 @@
         </div>
       </div>
 
+      <div class="project-card paused">
+        <div class="project-top">
+          <div class="project-title-row">
+            <span class="project-title">Circuits & Electronics (Elegoo UNO R3)</span>
+            <span class="badge hold">On Hold</span>
+          </div>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="project-body">
+          <p>Was messing around with basic circuits on an Elegoo UNO R3 kit. On hold for now while I focus on AI.</p>
+        </div>
+      </div>
+
       <div class="project-card">
         <div class="project-top">
           <div class="project-title-row">
@@ -583,29 +608,29 @@
     <div class="panel-head">
       <div class="panel-eyebrow">// where this is going</div>
       <h2 class="panel-title">Goals</h2>
-      <p class="panel-desc">Things I'm working toward, not all with deadlines.</p>
+      <p class="panel-desc">Things I'm working toward, not all with deadlines. Trying to keep this to a short list instead of everything at once.</p>
     </div>
 
     <div class="goal-list">
       <div class="goal-item">
-        <div class="goal-check"></div>
-        <div class="goal-text">Pass the SnowPro Core certification<span class="sub">Planned, no timeline yet</span></div>
-      </div>
-      <div class="goal-item">
-        <div class="goal-check"></div>
-        <div class="goal-text">Learn guitar<span class="sub">On my own, not started yet</span></div>
+        <div class="goal-check progress"></div>
+        <div class="goal-text">Build something with AI<span class="sub">Main focus right now — still figuring out exactly what</span></div>
       </div>
       <div class="goal-item">
         <div class="goal-check"></div>
         <div class="goal-text">Ship at least one personal app end to end<span class="sub">Scroll-blocker or the travel tracker, whichever comes first</span></div>
       </div>
-      <div class="goal-item">
-        <div class="goal-check"></div>
-        <div class="goal-text">Build something with AI<span class="sub">Still figuring out what</span></div>
+      <div class="goal-item paused">
+        <div class="goal-check hold"></div>
+        <div class="goal-text">Pass the SnowPro Core certification<span class="sub">On hold while I focus on AI</span></div>
       </div>
-      <div class="goal-item">
-        <div class="goal-check"></div>
-        <div class="goal-text">Build more with circuits and electronics<span class="sub">Starting with the Elegoo UNO R3</span></div>
+      <div class="goal-item paused">
+        <div class="goal-check hold"></div>
+        <div class="goal-text">Learn guitar<span class="sub">On hold while I focus on AI</span></div>
+      </div>
+      <div class="goal-item paused">
+        <div class="goal-check hold"></div>
+        <div class="goal-text">Build more with circuits and electronics<span class="sub">On hold while I focus on AI</span></div>
       </div>
     </div>
   </section>
@@ -646,16 +671,16 @@
         <div class="stat-detail"></div>
       </div>
 
-      <div class="stat-row" data-detail="Just started — picked up an Elegoo UNO R3 and I'm working through basic circuits from scratch.">
+      <div class="stat-row" data-detail="On hold for now — picked up an Elegoo UNO R3 and started basic circuits, paused to focus on AI.">
         <div class="stat-label-row">
           <div class="stat-name">🔌 Circuits &amp; Electronics</div>
-          <div class="stat-value">Beginner</div>
+          <div class="stat-value">On hold</div>
         </div>
         <div class="stat-track"><div class="stat-fill circuits" data-target="20%"></div></div>
         <div class="stat-detail"></div>
       </div>
 
-      <div class="stat-row" data-detail="New territory. Started looking into how it actually works under the hood, not just using the tools.">
+      <div class="stat-row" data-detail="Main focus right now. Started looking into how AI/ML actually works under the hood, not just using the tools.">
         <div class="stat-label-row">
           <div class="stat-name">🤖 AI / ML</div>
           <div class="stat-value">Beginner</div>
@@ -664,10 +689,10 @@
         <div class="stat-detail"></div>
       </div>
 
-      <div class="stat-row" data-detail="Haven't started yet — on the list, planning to learn on my own.">
+      <div class="stat-row" data-detail="On hold for now — wanted to learn on my own, paused to focus on AI.">
         <div class="stat-label-row">
           <div class="stat-name">🎸 Guitar</div>
-          <div class="stat-value">Not started</div>
+          <div class="stat-value">On hold</div>
         </div>
         <div class="stat-track"><div class="stat-fill guitar" data-target="4%"></div></div>
         <div class="stat-detail"></div>
@@ -685,6 +710,10 @@
     </div>
 
     <div class="log-list">
+      <div class="log-item">
+        <div class="log-date">2026-10-04</div>
+        <div class="log-text">Decided to narrow focus down to AI and dbt. Put SnowPro, the Claude cert, circuits, and guitar on hold instead of spreading across everything at once.</div>
+      </div>
       <div class="log-item">
         <div class="log-date">2026-09-26 · 2:30 PM</div>
         <div class="log-text">Started the dbt Fundamentals course.</div>
@@ -749,7 +778,7 @@
   }
 
   // Typewriter status line
-  const statuses = ["messing with an Elegoo UNO R3", "learning AI from the ground up", "leveling up, one skill at a time"];
+  const statuses = ["learning AI from the ground up", "working through dbt Fundamentals", "focused on fewer things, done better"];
   let si = 0;
   const statusEl = document.getElementById('status-text');
   setInterval(() => {
