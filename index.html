@@ -367,25 +367,74 @@
   }
   .stat-row.open .stat-detail{max-height:80px; margin-top:10px;}
 
-  /* ---------- STATS: UNDER CONSTRUCTION ---------- */
-  .construction-panel{
-    background:var(--bg-card);
-    border:1px dashed var(--border-light);
-    border-radius:12px;
-    padding:48px 26px;
-    text-align:center;
+  /* ---------- STATS: TERMINAL ---------- */
+  .terminal-panel{
+    background:#02040a;
+    border:1px solid var(--border-light);
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,0.4);
   }
-  .construction-icon{font-size:26px; margin-bottom:12px;}
-  .construction-title{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:600;
-    font-size:16px;
-    color:var(--text-mute);
+  .terminal-titlebar{
+    display:flex; align-items:center; gap:7px;
+    padding:11px 14px;
+    background:#0a0e16;
+    border-bottom:1px solid var(--border);
   }
-  .construction-text{
-    font-size:13px;
+  .term-dot{width:10px; height:10px; border-radius:50%;}
+  .term-dot.red{background:#ff5f57;}
+  .term-dot.amber{background:#febc2e;}
+  .term-dot.green{background:#28c840;}
+  .terminal-title{
+    margin-left:6px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
     color:var(--text-faint);
-    margin-top:6px;
+  }
+  .terminal-body{
+    padding:22px 22px 26px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    line-height:2;
+  }
+  .term-prompt{color:var(--text-mute);}
+  .term-output{color:var(--text-faint); font-size:11.5px;}
+  .term-unit{margin-top:2px;}
+  .term-row{
+    cursor:pointer;
+    white-space:pre;
+    color:var(--text);
+  }
+  .term-row.ai{color:var(--green);}
+  .term-row.sql{color:var(--cyan);}
+  .term-row.python{color:var(--violet);}
+  .term-row.circuits{color:var(--amber);}
+  .term-row.guitar{color:#8b98a8;}
+  .term-unit.hold .term-row{color:var(--text-faint) !important;}
+  .term-detail{
+    max-height:0; overflow:hidden;
+    transition:max-height 0.3s ease;
+    font-size:11.5px; color:var(--text-faint);
+    white-space:pre-wrap;
+    padding-left:2px;
+  }
+  .term-unit.open .term-detail{max-height:60px;}
+  .term-cursor{
+    display:inline-block;
+    background:var(--cyan);
+    width:7px; height:14px;
+    margin-left:4px;
+    vertical-align:text-bottom;
+    animation:blink 1s step-start infinite;
+  }
+  .term-final{
+    margin-top:10px;
+    opacity:0;
+    transition:opacity 0.4s ease;
+  }
+  .term-final.show{opacity:1;}
+  @media (max-width:640px){
+    .terminal-body{ font-size:10.5px; padding:18px 14px 22px; }
   }
 
   /* ---------- LOG ---------- */
@@ -640,65 +689,43 @@
     <div class="panel-head">
       <div class="panel-eyebrow">// skills</div>
       <h2 class="panel-title">Stats</h2>
-      <p class="panel-desc">A running list of things I'm actively learning or building — still figuring out how to track it right.</p>
+      <p class="panel-desc">What I'm actually learning right now, honestly leveled. Click a line for detail.</p>
     </div>
 
-    <div class="construction-panel">
-      <div class="construction-icon">🚧</div>
-      <div class="construction-title">Under construction</div>
-      <p class="construction-text">Working out the right way to track this. Check back later.</p>
-    </div>
-
-    <!--
-    Stats content, disabled for now — re-enable by uncommenting and restoring the
-    "Under construction" block above with the .stat-panel block below.
-    <div class="stat-panel">
-      <div class="stat-row" data-detail="Using it daily at work — writing queries, tracing data across systems, picking up more of the platform as I go.">
-        <div class="stat-label-row">
-          <div class="stat-name">🧊 SQL &amp; Snowflake</div>
-          <div class="stat-value">Comfortable</div>
-        </div>
-        <div class="stat-track"><div class="stat-fill sql" data-target="72%"></div></div>
-        <div class="stat-detail"></div>
+    <div class="terminal-panel">
+      <div class="terminal-titlebar">
+        <span class="term-dot red"></span><span class="term-dot amber"></span><span class="term-dot green"></span>
+        <span class="terminal-title">kunal@kokate: ~/skills</span>
       </div>
+      <div class="terminal-body" id="terminal-body">
+        <div class="term-prompt">$ ./skill_matrix --scan</div>
+        <div class="term-output">scanning... done.</div>
+        <div class="term-output">&nbsp;</div>
 
-      <div class="stat-row" data-detail="Solid on the basics, still working up to bigger personal projects outside of work.">
-        <div class="stat-label-row">
-          <div class="stat-name">🐍 Python</div>
-          <div class="stat-value">Learning</div>
+        <div class="term-unit" data-name="AI / ML" data-pct="20" data-status="FOCUS — BEGINNER" data-color="ai" data-detail="// Main focus right now. Started looking into how AI/ML actually works under the hood, not just using the tools.">
+          <div class="term-row ai"></div>
+          <div class="term-detail"></div>
         </div>
-        <div class="stat-track"><div class="stat-fill python" data-target="48%"></div></div>
-        <div class="stat-detail"></div>
-      </div>
+        <div class="term-unit" data-name="SQL & Snowflake" data-pct="75" data-status="COMFORTABLE" data-color="sql" data-detail="// Using it daily at work — writing queries, tracing data across systems, picking up more of the platform as I go.">
+          <div class="term-row sql"></div>
+          <div class="term-detail"></div>
+        </div>
+        <div class="term-unit" data-name="Python" data-pct="20" data-status="LEARNING" data-color="python" data-detail="// Solid on the basics, still working up to bigger personal projects outside of work.">
+          <div class="term-row python"></div>
+          <div class="term-detail"></div>
+        </div>
+        <div class="term-unit hold" data-name="Circuits" data-pct="0" data-status="PAUSED" data-color="circuits" data-detail="// On hold for now — picked up an Elegoo UNO R3 and started basic circuits, paused to focus on AI.">
+          <div class="term-row circuits"></div>
+          <div class="term-detail"></div>
+        </div>
+        <div class="term-unit hold" data-name="Guitar" data-pct="5" data-status="PAUSED" data-color="guitar" data-detail="// On hold for now — wanted to learn on my own, paused to focus on AI.">
+          <div class="term-row guitar"></div>
+          <div class="term-detail"></div>
+        </div>
 
-      <div class="stat-row" data-detail="On hold for now — picked up an Elegoo UNO R3 and started basic circuits, paused to focus on AI.">
-        <div class="stat-label-row">
-          <div class="stat-name">🔌 Circuits &amp; Electronics</div>
-          <div class="stat-value">On hold</div>
-        </div>
-        <div class="stat-track"><div class="stat-fill circuits" data-target="20%"></div></div>
-        <div class="stat-detail"></div>
-      </div>
-
-      <div class="stat-row" data-detail="Main focus right now. Started looking into how AI/ML actually works under the hood, not just using the tools.">
-        <div class="stat-label-row">
-          <div class="stat-name">🤖 AI / ML</div>
-          <div class="stat-value">Beginner</div>
-        </div>
-        <div class="stat-track"><div class="stat-fill ai" data-target="20%"></div></div>
-        <div class="stat-detail"></div>
-      </div>
-
-      <div class="stat-row" data-detail="On hold for now — wanted to learn on my own, paused to focus on AI.">
-        <div class="stat-label-row">
-          <div class="stat-name">🎸 Guitar</div>
-          <div class="stat-value">On hold</div>
-        </div>
-        <div class="stat-track"><div class="stat-fill guitar" data-target="4%"></div></div>
-        <div class="stat-detail"></div>
+        <div class="term-output term-final" id="term-final">&nbsp;<br>// synced 10/04/2026 — run again anytime<span class="term-cursor"></span></div>
       </div>
     </div>
-    -->
   </section>
 
   <!-- LOG -->
@@ -710,6 +737,10 @@
     </div>
 
     <div class="log-list">
+      <div class="log-item">
+        <div class="log-date">2026-10-04 · later</div>
+        <div class="log-text">Rebuilt the Stats tab as a little terminal — skill_matrix --scan, click a line to expand detail. Updated levels: AI/ML 20%, SQL &amp; Snowflake 75%, Python 20%, Circuits 0%, Guitar 5%.</div>
+      </div>
       <div class="log-item">
         <div class="log-date">2026-10-04</div>
         <div class="log-text">Decided to narrow focus down to AI and dbt. Put SnowPro, the Claude cert, circuits, and guitar on hold instead of spreading across everything at once.</div>
@@ -754,25 +785,57 @@
     card.addEventListener('click', () => card.classList.toggle('open'));
   });
 
-  // Stat row expand/collapse + fill detail text
-  document.querySelectorAll('.stat-row').forEach(row => {
-    const detail = row.querySelector('.stat-detail');
-    detail.textContent = row.dataset.detail;
-    row.querySelector('.stat-label-row').addEventListener('click', () => {
-      row.classList.toggle('open');
-    });
+  // Terminal skill rows: build text content + click-to-expand detail
+  const TERM_BAR_LEN = 20;
+  function padName(name){
+    const width = 17;
+    return name.length >= width ? name.slice(0, width) : name + ' '.repeat(width - name.length);
+  }
+  function renderBar(filled){
+    return '█'.repeat(filled) + '░'.repeat(TERM_BAR_LEN - filled);
+  }
+  function setRowText(row, name, filled, pct, status){
+    const pctStr = String(pct).padStart(3, ' ');
+    row.textContent = padName(name) + '[' + renderBar(filled) + '] ' + pctStr + '%  ' + status;
+  }
+  const termUnits = document.querySelectorAll('.term-unit');
+  termUnits.forEach(unit => {
+    const row = unit.querySelector('.term-row');
+    const detail = unit.querySelector('.term-detail');
+    setRowText(row, unit.dataset.name, 0, 0, '');
+    detail.textContent = unit.dataset.detail;
+    unit.addEventListener('click', () => unit.classList.toggle('open'));
   });
 
-  // Animate stat bars when Stats tab is opened
+  // Animate terminal bars filling in, staggered, when Stats tab is opened
   let statsAnimated = false;
   function animateStats(){
     if(statsAnimated) return;
     statsAnimated = true;
-    document.querySelectorAll('.stat-fill').forEach(fill => {
-      requestAnimationFrame(() => { fill.style.width = fill.dataset.target; });
+    termUnits.forEach((unit, i) => {
+      const row = unit.querySelector('.term-row');
+      const name = unit.dataset.name;
+      const targetPct = parseInt(unit.dataset.pct, 10) || 0;
+      const status = unit.dataset.status;
+      const targetFilled = Math.round((targetPct / 100) * TERM_BAR_LEN);
+      setTimeout(() => {
+        if(targetFilled === 0){ setRowText(row, name, 0, targetPct, status); return; }
+        let filled = 0;
+        const stepTime = Math.max(500 / targetFilled, 18);
+        const timer = setInterval(() => {
+          filled++;
+          setRowText(row, name, Math.min(filled, targetFilled), targetPct, filled >= targetFilled ? status : '');
+          if(filled >= targetFilled){ clearInterval(timer); }
+        }, stepTime);
+      }, i * 260);
     });
+    const totalDelay = termUnits.length * 260 + 900;
+    setTimeout(() => {
+      const final = document.getElementById('term-final');
+      if(final){ final.classList.add('show'); }
+    }, totalDelay);
   }
-  // animate immediately if Now isn't the restored tab and Stats is active on load
+  // animate immediately if Stats is the restored/active tab on load
   if(document.getElementById('panel-stats').classList.contains('active')){
     setTimeout(animateStats, 200);
   }
