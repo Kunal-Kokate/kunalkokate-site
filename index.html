@@ -437,6 +437,113 @@
     .terminal-body{ font-size:10.5px; padding:18px 14px 22px; }
   }
 
+  /* ---------- ROADMAP ---------- */
+  .roadmap-tracks{
+    display:flex; gap:16px; flex-wrap:wrap;
+    margin-top:18px; margin-bottom:28px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--text-mute);
+  }
+  .roadmap-tracks span{display:inline-flex; align-items:center; gap:6px;}
+  .track-dot{width:8px; height:8px; border-radius:50%; flex-shrink:0;}
+  .track-dot.foundation{background:var(--green);}
+  .track-dot.eng{background:var(--cyan);}
+  .track-dot.ml{background:var(--violet);}
+
+  .roadmap-list{
+    border-left:2px solid var(--border);
+    margin-left:13px;
+    display:flex; flex-direction:column;
+  }
+  .roadmap-phase{
+    position:relative;
+    padding:0 0 28px 28px;
+  }
+  .roadmap-phase:last-child{padding-bottom:4px;}
+  .phase-num{
+    position:absolute; left:-13px; top:0;
+    width:24px; height:24px;
+    border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--border-light);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; font-weight:600;
+    color:var(--text-faint);
+  }
+  .roadmap-phase.eng .phase-num{border-color:var(--cyan-dim); color:var(--cyan);}
+  .roadmap-phase.ml .phase-num{border-color:var(--violet-dim); color:var(--violet);}
+  .roadmap-phase.foundation .phase-num{border-color:var(--green); color:var(--green);}
+
+  .phase-head{
+    cursor:pointer;
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:15px 18px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    transition:border-color 0.15s ease, background 0.15s ease;
+  }
+  .phase-head:hover{border-color:var(--border-light); background:var(--bg-card-hover);}
+  .phase-title-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .phase-title{font-family:'Space Grotesk', sans-serif; font-size:15px; font-weight:600;}
+  .phase-track{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px; letter-spacing:0.03em;
+    padding:3px 9px; border-radius:99px;
+    white-space:nowrap;
+  }
+  .phase-track.foundation{color:var(--green); background:rgba(126,224,168,0.1); border:1px solid rgba(126,224,168,0.3);}
+  .phase-track.eng{color:var(--cyan); background:rgba(103,232,249,0.08); border:1px solid rgba(103,232,249,0.25);}
+  .phase-track.ml{color:var(--violet); background:rgba(167,139,250,0.1); border:1px solid rgba(167,139,250,0.3);}
+  .phase-progress{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; color:var(--text-faint);
+    flex-shrink:0;
+  }
+  .phase-body{
+    max-height:0; overflow:hidden;
+    transition:max-height 0.35s ease, margin-top 0.35s ease;
+  }
+  .roadmap-phase.open .phase-body{max-height:600px; margin-top:12px;}
+  .phase-desc{font-size:13.5px; color:var(--text-mute); line-height:1.6; padding:0 2px;}
+  .milestone-list{display:flex; flex-direction:column; gap:7px; margin-top:14px;}
+  .milestone-item{
+    display:flex; align-items:flex-start; gap:10px;
+    cursor:pointer; user-select:none;
+    font-size:13.5px; color:var(--text);
+    padding:2px;
+  }
+  .milestone-check{
+    width:16px; height:16px; margin-top:2px;
+    border-radius:4px;
+    border:1.5px solid var(--border-light);
+    flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .milestone-item.done .milestone-check{background:var(--green); border-color:var(--green);}
+  .milestone-item.done .milestone-check::after{
+    content:''; width:8px; height:5px;
+    border-left:2px solid #05070d; border-bottom:2px solid #05070d;
+    transform:rotate(-45deg) translate(0.5px, -1px);
+  }
+  .milestone-item.done .milestone-text{color:var(--text-faint); text-decoration:line-through; text-decoration-color:var(--border-light);}
+  .phase-resources{
+    margin-top:14px; padding-top:12px;
+    border-top:1px solid var(--border);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px; color:var(--text-faint);
+    line-height:1.9;
+  }
+  .phase-resources a{color:var(--cyan-dim);}
+  .phase-resources a:hover{color:var(--cyan);}
+  @media (max-width:640px){
+    .roadmap-list{margin-left:9px;}
+    .roadmap-phase{padding-left:22px;}
+    .phase-num{width:20px; height:20px; left:-11px; font-size:10px;}
+  }
+
   /* ---------- LOG ---------- */
   .log-list{
     border-left:2px solid var(--border);
@@ -489,6 +596,7 @@
       <button class="tab-btn" data-panel="building">Building</button>
       <button class="tab-btn" data-panel="goals">Goals</button>
       <button class="tab-btn" data-panel="stats">Stats</button>
+      <button class="tab-btn" data-panel="roadmap">AI Roadmap</button>
       <button class="tab-btn" data-panel="log">Log</button>
     </div>
   </div>
@@ -728,6 +836,232 @@
     </div>
   </section>
 
+  <!-- ROADMAP -->
+  <section class="panel" id="panel-roadmap">
+    <div class="panel-head">
+      <div class="panel-eyebrow">// the plan</div>
+      <h2 class="panel-title">AI Roadmap</h2>
+      <p class="panel-desc">Written assuming zero prior knowledge — no programming, no AI, nothing. Three things it's building toward: use AI for real at work, train something that can beat a game, and eventually build a whole simulated world of agents — like a city of cars where some drive normally, some break the rules, and cops react to it. Click a phase to expand it.</p>
+    </div>
+
+    <div class="roadmap-tracks">
+      <span><span class="track-dot foundation"></span>Foundation</span>
+      <span><span class="track-dot eng"></span>AI Engineering — using models, at work &amp; on my own</span>
+      <span><span class="track-dot ml"></span>ML / RL — training something to beat a game</span>
+    </div>
+
+    <div class="roadmap-list" id="roadmap-list">
+
+      <div class="roadmap-phase foundation" data-id="p0">
+        <div class="phase-num">0</div>
+        <div class="phase-head">
+          <div class="phase-title-row">
+            <span class="phase-title">Learn to code, from zero</span>
+            <span class="phase-track foundation">Foundation</span>
+          </div>
+          <span class="phase-progress"></span>
+        </div>
+        <div class="phase-body">
+          <p class="phase-desc">Before any of this makes sense, I need to be able to write and run basic code. Python is the language almost everything in AI is built with, so that's the one to start on — no coding background assumed, starting from "what is a program."</p>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Install Python and run a program from the terminal (the text-based window where you type commands instead of clicking)</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Get comfortable with a code editor (VS Code is the standard, free one)</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Understand variables (named storage for a value), loops (repeat an action), and if/else logic (branching based on a condition) — the core building blocks of any program</div></div>
+            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Write a few tiny throwaway programs just to get the feel of it — a calculator, a number-guessing game</div></div>
+          </div>
+          <div class="phase-resources">// <a href="https://cs50.harvard.edu/python/" target="_blank" rel="noopener">CS50P</a> — Harvard's free intro to Python, built for true beginners · <a href="https://www.freecodecamp.org/news/python-for-beginners/" target="_blank" rel="noopener">freeCodeCamp's "Python for Beginners"</a></div>
+        </div>
+      </div>
+
+      <div class="roadmap-phase foundation" data-id="p1">
+        <div class="phase-num">1</div>
+        <div class="phase-head">
+          <div class="phase-title-row">
+            <span class="phase-title">Python for real</span>
+            <span class="phase-track foundation">Foundation</span>
+          </div>
+          <span class="phase-progress"></span>
+        </div>
+        <div class="phase-body">
+          <p class="phase-desc">Move from "I can follow a tutorial" to "I can build something of my own." Everything after this assumes this level of comfort.</p>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Functions (named, reusable chunks of code) and classes (templates for bundling related data and behavior together)</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Reading and writing files from code, without looking up the syntax every time</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">What an API is (one program asking another program, usually over the internet, for data or an action) and what JSON is (the plain-text format those answers usually come back in)</div></div>
+            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Git (a tool that tracks changes to code over time) and GitHub (where code gets stored and shared) beyond just this site</div></div>
+          </div>
+          <div class="phase-resources">// <a href="https://automatetheboringstuff.com/" target="_blank" rel="noopener">Automate the Boring Stuff with Python</a> — free online, very practical</div>
+        </div>
+      </div>
+
+      <div class="roadmap-phase foundation" data-id="p2">
+        <div class="phase-num">2</div>
+        <div class="phase-head">
+          <div class="phase-title-row">
+            <span class="phase-title">How AI models actually work</span>
+            <span class="phase-track foundation">Foundation</span>
+          </div>
+          <span class="phase-progress"></span>
+        </div>
+        <div class="phase-body">
+          <p class="phase-desc">The plain-English version of what's actually happening under the hood — enough to not just be guessing at API calls. No math required at this stage.</p>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Tokens — the small chunks of text (roughly pieces of words) a model actually reads and writes</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Context window — how much text the model can "see" and remember at once in a conversation</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Embeddings — a way of turning text into a list of numbers so a computer can compare meaning, not just exact words</div></div>
+            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">The difference between training a model (teaching it, done once, by a company like Anthropic) and inference (just asking it something, which is what using it means)</div></div>
+          </div>
+          <div class="phase-resources">// <a href="https://www.3blue1brown.com/topics/neural-networks" target="_blank" rel="noopener">3Blue1Brown's neural network video series</a> · <a href="https://www.youtube.com/watch?v=zjkBMFhNj_g" target="_blank" rel="noopener">Karpathy's "Intro to Large Language Models"</a> talk — both free on YouTube, no background assumed</div>
+        </div>
+      </div>
+
+      <div class="roadmap-phase eng" data-id="p3">
+        <div class="phase-num">3</div>
+        <div class="phase-head">
+          <div class="phase-title-row">
+            <span class="phase-title">Build with the API</span>
+            <span class="phase-track eng">AI Engineering</span>
+          </div>
+          <span class="phase-progress"></span>
+        </div>
+        <div class="phase-body">
+          <p class="phase-desc">Move past the chat window — calling a model directly from code is a different skill than chatting with one, and it's the one that actually transfers to work.</p>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Call the Claude or OpenAI API directly from a Python script and print out what it says back</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Understand system prompts (instructions that set the model's behavior before the conversation starts) and getting the model to reply in a structured format like JSON instead of free text</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Function calling / tool use — letting the model ask your code to do something for it, like look up a number, instead of guessing</div></div>
+            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Build: a small command-line tool that does one real task start to finish</div></div>
+          </div>
+          <div class="phase-resources">// <a href="https://docs.claude.com" target="_blank" rel="noopener">Anthropic API docs</a> · <a href="https://www.deeplearning.ai/short-courses/" target="_blank" rel="noopener">DeepLearning.AI short courses</a> — free, beginner-friendly</div>
+        </div>
+      </div>
+
+      <div class="roadmap-phase eng" data-id="p4">
+        <div class="phase-num">4</div>
+        <div class="phase-head">
+          <div class="phase-title-row">
+            <span class="phase-title">Retrieval-augmented generation (RAG)</span>
+            <span class="phase-track eng">AI Engineering</span>
+          </div>
+          <span class="phase-progress"></span>
+        </div>
+        <div class="phase-body">
+          <p class="phase-desc">Hooking a model up to real, specific data instead of just what it memorized during training. This plays directly to the SQL/data background.</p>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Understand vector search — searching by meaning instead of exact keywords, using those "embedding" numbers from Phase 2</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Set up a vector database (a database built specifically to store and search those embeddings) — Chroma is the easiest one to start with</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Build: a tool that answers questions grounded in my own notes or documents, not just the model's general knowledge</div></div>
+          </div>
+          <div class="phase-resources">// <a href="https://docs.trychroma.com/getting-started" target="_blank" rel="noopener">Chroma quickstart</a> · <a href="https://docs.llamaindex.ai/" target="_blank" rel="noopener">LlamaIndex docs</a></div>
+        </div>
+      </div>
+
+      <div class="roadmap-phase eng" data-id="p5">
+        <div class="phase-num">5</div>
+        <div class="phase-head">
+          <div class="phase-title-row">
+            <span class="phase-title">Agents, applied at work</span>
+            <span class="phase-track eng">AI Engineering</span>
+          </div>
+          <span class="phase-progress"></span>
+        </div>
+        <div class="phase-body">
+          <p class="phase-desc">An "agent" is just a model that can take more than one step on its own — plan, use a tool, check its own work, repeat. Where this is supposed to actually land: something useful in the Snowflake/data world I already work in.</p>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Build a simple agent that plans a few steps, calls a tool, and checks its own output before finishing</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Build: a tool that turns a plain-English question into a SQL query against real Snowflake data</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Ship something small for actual use, even if it's just for me at first</div></div>
+          </div>
+          <div class="phase-resources">// <a href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener">Anthropic's agent-building guide</a> · <a href="https://langchain-ai.github.io/langgraph/" target="_blank" rel="noopener">LangGraph docs</a></div>
+        </div>
+      </div>
+
+      <div class="roadmap-phase ml" data-id="p6">
+        <div class="phase-num">6</div>
+        <div class="phase-head">
+          <div class="phase-title-row">
+            <span class="phase-title">ML fundamentals</span>
+            <span class="phase-track ml">ML / RL</span>
+          </div>
+          <span class="phase-progress"></span>
+        </div>
+        <div class="phase-body">
+          <p class="phase-desc">Where the game-playing goal branches off from the work-facing track — this is about training a model myself, not calling one someone else trained. Some basic math shows up here (just enough algebra and stats to follow what's happening, nothing heavy).</p>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Loss — a single number that says how wrong a model's guess was — and gradient descent, the method used to nudge the model to be a little less wrong, over and over</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Comfortable with NumPy and pandas (Python libraries for working with numbers and tables of data efficiently)</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Build a model from scratch — starting with linear regression (fitting a line to data), then a small neural network</div></div>
+          </div>
+          <div class="phase-resources">// <a href="https://course.fast.ai/" target="_blank" rel="noopener">fast.ai "Practical Deep Learning"</a> · <a href="https://karpathy.ai/zero-to-hero.html" target="_blank" rel="noopener">Karpathy's "Neural Networks: Zero to Hero"</a> — both start from first principles</div>
+        </div>
+      </div>
+
+      <div class="roadmap-phase ml" data-id="p7">
+        <div class="phase-num">7</div>
+        <div class="phase-head">
+          <div class="phase-title-row">
+            <span class="phase-title">Reinforcement learning basics</span>
+            <span class="phase-track ml">ML / RL</span>
+          </div>
+          <span class="phase-progress"></span>
+        </div>
+        <div class="phase-body">
+          <p class="phase-desc">The actual field "train an AI to beat a game" belongs to — a different branch of ML from the language-model stuff above.</p>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">The core vocabulary: the agent (the thing making decisions), the environment (the game or world it acts in), the reward (the score it's trying to maximize), and its policy (its strategy for picking actions)</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Implement Q-learning (one of the simplest training methods) by hand on something tiny, like the FrozenLake grid-walking game</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Get comfortable with Gymnasium — the standard toolkit that gives you game-like environments to train agents in</div></div>
+          </div>
+          <div class="phase-resources">// <a href="https://huggingface.co/learn/deep-rl-course" target="_blank" rel="noopener">Hugging Face's free Deep RL course</a> — built for this exact on-ramp · <a href="https://gymnasium.farama.org/" target="_blank" rel="noopener">Gymnasium docs</a></div>
+        </div>
+      </div>
+
+      <div class="roadmap-phase ml" data-id="p8">
+        <div class="phase-num">8</div>
+        <div class="phase-head">
+          <div class="phase-title-row">
+            <span class="phase-title">Beat an actual game</span>
+            <span class="phase-track ml">ML / RL</span>
+          </div>
+          <span class="phase-progress"></span>
+        </div>
+        <div class="phase-body">
+          <p class="phase-desc">The goal. Start small and work up — nobody trains an agent to beat a hard game on the first try, the simple ones teach the real lessons.</p>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Train a DQN agent (a straightforward, well-documented method) on something simple — CartPole (balance a pole) first, then a basic Atari game</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Move up to PPO (a more modern, stable training method), using a ready-made library called Stable-Baselines3 instead of writing it from scratch</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Pick one real game I actually care about and make that the real target</div></div>
+          </div>
+          <div class="phase-resources">// <a href="https://stable-baselines3.readthedocs.io/" target="_blank" rel="noopener">Stable-Baselines3 docs</a> · <a href="https://github.com/vwxyzjn/cleanrl" target="_blank" rel="noopener">CleanRL reference implementations</a></div>
+        </div>
+      </div>
+
+      <div class="roadmap-phase ml" data-id="p9">
+        <div class="phase-num">9</div>
+        <div class="phase-head">
+          <div class="phase-title-row">
+            <span class="phase-title">Build a living world (traffic sim)</span>
+            <span class="phase-track ml">ML / RL</span>
+          </div>
+          <span class="phase-progress"></span>
+        </div>
+        <div class="phase-body">
+          <p class="phase-desc">The real stretch goal: not one agent beating one game, but a whole simulated world running at once — cars driving endless roads, most of them behaving, some of them not, and cops reacting to the ones that don't. This is "multi-agent" — lots of independent agents in the same world instead of just one — and it's genuinely harder than anything above, so it comes last and leans on everything before it.</p>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Build the world itself first, with no AI at all — roads, intersections, and cars that just follow a fixed path, in a simple 2D engine like Pygame</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Script a few "normal" driver agents with plain rule-based logic — stay in lane, stop at lights, obey speed limits</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Script a few "bad" driver agents that break those same rules — running lights, speeding, ignoring lanes — still just hand-written rules at this stage, not learning yet</div></div>
+            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Add a police agent that watches for rule-breaking and reacts — pulls the offending car over, starting as simple rule-based detection ("is this car over the speed limit?")</div></div>
+            <div class="milestone-item" data-mid="m4"><div class="milestone-check"></div><div class="milestone-text">Swap the hand-scripted drivers for trained ones, one at a time, using the RL skills from Phases 7–8, so behavior comes from training instead of if/else rules</div></div>
+            <div class="milestone-item" data-mid="m5"><div class="milestone-check"></div><div class="milestone-text">Stretch: look into multi-agent RL proper — where many agents learn and adapt to each other at the same time, which is its own harder research area</div></div>
+          </div>
+          <div class="phase-resources">// <a href="https://www.pygame.org/docs/" target="_blank" rel="noopener">Pygame docs</a> — for building the world itself · <a href="https://eclipse.dev/sumo/" target="_blank" rel="noopener">SUMO</a> — a free, purpose-built traffic simulator, worth a look once the custom version works · <a href="https://pettingzoo.farama.org/" target="_blank" rel="noopener">PettingZoo docs</a> — the standard toolkit for multi-agent RL</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- LOG -->
   <section class="panel" id="panel-log">
     <div class="panel-head">
@@ -737,6 +1071,14 @@
     </div>
 
     <div class="log-list">
+      <div class="log-item">
+        <div class="log-date">2026-10-04 · night</div>
+        <div class="log-text">Added a 3rd goal to the AI Roadmap: Phase 9, a multi-agent traffic simulation — normal drivers, rule-breakers, and a police agent that reacts to them. Starts hand-scripted, ends with trained agents.</div>
+      </div>
+      <div class="log-item">
+        <div class="log-date">2026-10-04 · evening</div>
+        <div class="log-text">Added an AI Roadmap tab, rewritten to assume zero starting knowledge — phases from "install Python" through two tracks: AI engineering (API, RAG, agents at work) and ML/RL (training something to actually beat a game). Checkable milestones that stick around.</div>
+      </div>
       <div class="log-item">
         <div class="log-date">2026-10-04 · later</div>
         <div class="log-text">Rebuilt the Stats tab as a little terminal — skill_matrix --scan, click a line to expand detail. Updated levels: AI/ML 20%, SQL &amp; Snowflake 75%, Python 20%, Circuits 0%, Guitar 5%.</div>
@@ -839,6 +1181,40 @@
   if(document.getElementById('panel-stats').classList.contains('active')){
     setTimeout(animateStats, 200);
   }
+
+  // Roadmap: expand/collapse phases, persist milestone checkmarks, show progress
+  (function(){
+    let checks = {};
+    try{ checks = JSON.parse(localStorage.getItem('kk_roadmap_checks') || '{}'); }catch(e){ checks = {}; }
+    function save(){
+      try{ localStorage.setItem('kk_roadmap_checks', JSON.stringify(checks)); }catch(e){}
+    }
+    document.querySelectorAll('.roadmap-phase').forEach(phase => {
+      const pid = phase.dataset.id;
+      const head = phase.querySelector('.phase-head');
+      const progressEl = phase.querySelector('.phase-progress');
+      const items = phase.querySelectorAll('.milestone-item');
+
+      function updateProgress(){
+        let done = 0;
+        items.forEach(item => { if(item.classList.contains('done')) done++; });
+        progressEl.textContent = done + '/' + items.length;
+      }
+      items.forEach(item => {
+        const key = pid + ':' + item.dataset.mid;
+        if(checks[key]){ item.classList.add('done'); }
+        item.addEventListener('click', (e) => {
+          e.stopPropagation();
+          item.classList.toggle('done');
+          checks[key] = item.classList.contains('done');
+          save();
+          updateProgress();
+        });
+      });
+      updateProgress();
+      head.addEventListener('click', () => { phase.classList.toggle('open'); });
+    });
+  })();
 
   // Typewriter status line
   const statuses = ["learning AI from the ground up", "working through dbt Fundamentals", "focused on fewer things, done better"];
