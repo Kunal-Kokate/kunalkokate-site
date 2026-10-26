@@ -567,6 +567,76 @@
   }
   .log-text{font-size:14px; margin-top:4px;}
 
+  /* ---------- WHOOP ---------- */
+  .wh-section{margin-bottom:40px;}
+  .wh-section-title{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--text-mute);
+    margin-bottom:12px;
+  }
+  .wh-headline{font-family:'Space Grotesk', sans-serif; font-size:19px; font-weight:500; margin-bottom:16px; line-height:1.4;}
+  .wh-headline b{color:var(--cyan); font-weight:600;}
+  .wh-foot{font-size:12.5px; color:var(--text-faint); margin-top:10px; max-width:600px;}
+  .wh-error{background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:18px; color:var(--text-mute); font-size:14px;}
+
+  .wh-grid-wrap{max-width:560px;}
+  .wh-grid{
+    display:grid;
+    grid-template-columns:minmax(84px, auto) 1fr 1fr;
+    gap:6px;
+  }
+  .wh-axis{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-mute);
+    display:flex; align-items:center;
+  }
+  .wh-axis.col{justify-content:center; padding-bottom:2px;}
+  .wh-cell{
+    border-radius:10px;
+    border:1px solid var(--border);
+    padding:16px 10px;
+    text-align:center;
+    min-height:92px;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .wh-cell.thin{border-style:dashed; border-color:var(--border-light);}
+  .wh-cell .v{font-family:'Space Grotesk', sans-serif; font-size:28px; font-weight:600; color:var(--text); line-height:1.1;}
+  .wh-cell .n{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-mute); margin-top:6px;}
+
+  .wh-tiles{display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:12px;}
+  .wh-tile{background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:16px 18px;}
+  .wh-tile .label{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-mute);}
+  .wh-tile .value{font-family:'Space Grotesk', sans-serif; font-size:26px; font-weight:600; margin-top:6px;}
+  .wh-tile .sub{font-size:12px; color:var(--text-faint); margin-top:2px;}
+
+  .wh-chart{position:relative; background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:14px 14px 6px; margin-bottom:12px;}
+  .wh-chart-title{font-family:'Space Grotesk', sans-serif; font-size:14px; font-weight:600; margin:0 0 4px 4px;}
+  .wh-chart svg{display:block; width:100%; height:auto; overflow:visible;}
+  .wh-tip{
+    position:absolute; pointer-events:none;
+    background:#0a0e16; border:1px solid var(--border-light); border-radius:6px;
+    padding:7px 10px; font-size:12px; line-height:1.45; white-space:nowrap;
+    box-shadow:0 8px 24px rgba(0,0,0,0.4);
+    opacity:0; transition:opacity 0.1s ease;
+  }
+  .wh-tip .t{font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--text-mute);}
+
+  .wh-findings{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px;}
+  .wh-group{background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:16px 18px;}
+  .wh-group h5{font-family:'Space Grotesk', sans-serif; font-size:14px; font-weight:600; display:flex; align-items:center; gap:8px; margin-bottom:10px;}
+  .wh-group h5 .dot{width:8px; height:8px; border-radius:50%;}
+  .wh-group ul{list-style:none; display:flex; flex-direction:column; gap:9px;}
+  .wh-group li{font-size:13.5px;}
+  .wh-group li .meta{display:block; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-faint); margin-top:1px;}
+  .wh-group .empty{font-size:13px; color:var(--text-faint);}
+
+  @media (max-width:640px){
+    .wh-cell .v{font-size:23px;}
+    .wh-cell{min-height:80px; padding:12px 6px;}
+    .wh-grid{grid-template-columns:72px 1fr 1fr;}
+    .wh-headline{font-size:17px;}
+  }
+
   /* ---------- FOOTER ---------- */
   footer{
     border-top:1px solid var(--border);
@@ -1002,7 +1072,40 @@
     <div class="panel-head">
       <div class="panel-eyebrow">// my data</div>
       <h2 class="panel-title">Whoop</h2>
-      <p class="panel-desc">Charts from my own Whoop data: sleep, recovery, and strain. Coming soon.</p>
+      <p class="panel-desc">What actually drives my recovery, pulled from my own Whoop data with a Python + SQL pipeline. Only summaries are published here, never day-by-day records.</p>
+      <div class="updated-tag" id="wh-coverage">loading…</div>
+    </div>
+
+    <div id="wh-error" class="wh-error" hidden>Couldn't load the Whoop summary right now.</div>
+
+    <div id="wh-content" hidden>
+      <div class="wh-section">
+        <div class="wh-section-title">What drives my recovery</div>
+        <p class="wh-headline" id="wh-headline"></p>
+        <div class="wh-grid-wrap">
+          <div class="wh-grid" id="wh-grid" role="table" aria-label="Average recovery by bedtime and hours of sleep"></div>
+        </div>
+        <p class="wh-foot">Average morning recovery for each kind of night. Dashed cells have too few nights to trust yet.</p>
+      </div>
+
+      <div class="wh-section">
+        <div class="wh-section-title">Last 7 days</div>
+        <div class="wh-tiles" id="wh-tiles"></div>
+        <p class="wh-foot" id="wh-last7-note"></p>
+      </div>
+
+      <div class="wh-section">
+        <div class="wh-section-title">Trend, by week</div>
+        <div class="wh-chart" id="wh-chart-recovery"></div>
+        <div class="wh-chart" id="wh-chart-hrv"></div>
+        <p class="wh-foot">Weekly averages. Shaded weeks are when I wasn't wearing it. A week needs 3+ tracked days to count.</p>
+      </div>
+
+      <div class="wh-section">
+        <div class="wh-section-title">Tested: what matters and what doesn't</div>
+        <div class="wh-findings" id="wh-findings"></div>
+        <p class="wh-foot">r is the correlation with recovery, from −1 to 1. Around 0 means no relationship. These show what happens together, not proof that one causes the other.</p>
+      </div>
     </div>
   </section>
 
@@ -1169,6 +1272,197 @@
       });
       updateProgress();
       head.addEventListener('click', () => { phase.classList.toggle('open'); });
+    });
+  })();
+
+  // ---------- Whoop tab: draws everything from whoop-summary.json ----------
+  (function(){
+    const $ = id => document.getElementById(id);
+    const pct = v => v == null ? '–' : Math.round(v) + '%';
+    const fmtDate = s => new Date(s + 'T12:00:00').toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+    const fmtShort = s => new Date(s + 'T12:00:00').toLocaleDateString('en-US', {month:'short', day:'numeric'});
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const MIN_NIGHTS = 10;
+    let data = null, drawn = false;
+
+    function load(){
+      if(data) return Promise.resolve(data);
+      return fetch('whoop-summary.json', {cache:'no-cache'})
+        .then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
+        .then(d => (data = d));
+    }
+
+    function renderGrid(d){
+      const cell = (bed, sleep) => d.grid.find(g => g.bedtime === bed && g.sleep === sleep);
+      const vals = d.grid.filter(g => g.avg_recovery != null).map(g => g.avg_recovery);
+      const lo = Math.min(...vals), hi = Math.max(...vals);
+      const shade = v => {
+        if(v == null) return 'transparent';
+        const t = hi === lo ? 1 : (v - lo) / (hi - lo);
+        return `rgba(103,232,249,${(0.06 + t * 0.30).toFixed(3)})`;  // one hue, stronger = better recovery
+      };
+      let html = '<div></div><div class="wh-axis col" role="columnheader">6+ hours</div><div class="wh-axis col" role="columnheader">under 6 hours</div>';
+      ['before 2am', 'after 2am'].forEach(bed => {
+        html += `<div class="wh-axis" role="rowheader">in bed<br>${bed}</div>`;
+        ['6h+', 'under 6h'].forEach(sleep => {
+          const c = cell(bed, sleep) || {};
+          const thin = (c.nights || 0) < MIN_NIGHTS;
+          const nTxt = !c.nights ? 'no nights yet' : `${c.nights} night${c.nights === 1 ? '' : 's'}${thin ? ' · too few' : ''}`;
+          html += `<div class="wh-cell${thin ? ' thin' : ''}" role="cell" style="background:${shade(c.avg_recovery)}"
+                     title="In bed ${bed}, ${sleep} of sleep: ${pct(c.avg_recovery)} average recovery over ${c.nights || 0} nights">
+                     <div class="v">${pct(c.avg_recovery)}</div><div class="n">${nTxt}</div></div>`;
+        });
+      });
+      $('wh-grid').innerHTML = html;
+
+      const best = cell('before 2am', '6h+'), worst = cell('after 2am', 'under 6h');
+      if(best && worst && best.avg_recovery != null && worst.avg_recovery != null){
+        $('wh-headline').innerHTML = `In bed before 2am with 6+ hours of sleep, I average <b>${pct(best.avg_recovery)}</b> recovery. Miss both and it drops to <b>${pct(worst.avg_recovery)}</b>.`;
+      }
+    }
+
+    function renderTiles(d){
+      const l = d.last7, base = d.overall.avg_recovery;
+      const diff = l.avg_recovery == null ? null : Math.round(l.avg_recovery - base);
+      const tiles = [
+        {label:'Avg recovery', value:pct(l.avg_recovery),
+         sub: diff == null ? 'no scores yet' : (diff === 0 ? 'same as my normal' : `${Math.abs(diff)} pts ${diff > 0 ? 'above' : 'below'} my ${pct(base)} normal`)},
+        {label:'Avg sleep', value: l.avg_sleep_hours == null ? '–' : l.avg_sleep_hours.toFixed(1) + 'h', sub:'my goal: 6h+'},
+        {label:'Nights after 2am', value: String(l.late_nights), sub:`of ${l.days_tracked} tracked`},
+        {label:'Days tracked', value:`${l.days_tracked}/7`, sub: l.days_tracked < 7 ? 'missing days = not wearing it' : 'full week'},
+      ];
+      $('wh-tiles').innerHTML = tiles.map(t =>
+        `<div class="wh-tile"><div class="label">${t.label}</div><div class="value">${t.value}</div><div class="sub">${esc(t.sub)}</div></div>`).join('');
+      $('wh-last7-note').textContent = l.days_tracked < 4
+        ? `Only ${l.days_tracked} day${l.days_tracked === 1 ? '' : 's'} tracked this week, so treat these as early numbers.`
+        : `Week ending ${fmtDate(d.coverage.last_day)}.`;
+    }
+
+    // One small line chart per measure (never two y-axes on one chart).
+    function lineChart(el, title, weeks, key, unit, refValue, refLabel){
+      const W = Math.max(280, el.clientWidth - 28), H = 170;
+      const m = {t:12, r:62, b:24, l:34};  // same margins on both charts so their weeks line up
+      const pw = W - m.l - m.r, ph = H - m.t - m.b;
+      const vals = weeks.map(w => w[key]).filter(v => v != null);
+      if(!vals.length){ el.innerHTML = `<div class="wh-chart-title">${title}</div><p class="wh-foot">Not enough data yet.</p>`; return; }
+      let lo = Math.min(...vals, refValue ?? Infinity), hi = Math.max(...vals, refValue ?? -Infinity);
+      const pad = (hi - lo) * 0.15 || 5; lo = Math.max(0, Math.floor((lo - pad) / 5) * 5); hi = Math.ceil((hi + pad) / 5) * 5;
+      const n = weeks.length;
+      const x = i => m.l + (n === 1 ? pw / 2 : (i / (n - 1)) * pw);
+      const y = v => m.t + ph - ((v - lo) / (hi - lo)) * ph;
+      const step = n > 1 ? pw / (n - 1) : pw;
+
+      let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(title)}, weekly">`;
+      // gridlines + y labels (3 ticks)
+      for(let k = 0; k <= 2; k++){
+        const v = lo + (hi - lo) * k / 2, yy = y(v);
+        s += `<line x1="${m.l}" x2="${W - m.r}" y1="${yy}" y2="${yy}" stroke="#1c2530" stroke-width="1"/>`;
+        s += `<text x="${m.l - 6}" y="${yy + 4}" text-anchor="end" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="10" fill="#4d5a6b">${Math.round(v)}</text>`;
+      }
+      // shade weeks with no data
+      weeks.forEach((w, i) => {
+        if(w[key] == null){
+          s += `<rect x="${Math.max(m.l, x(i) - step / 2)}" y="${m.t}" width="${Math.min(step, W - m.r - Math.max(m.l, x(i) - step / 2))}" height="${ph}" fill="rgba(255,255,255,0.025)"/>`;
+        }
+      });
+      // reference line (my average)
+      if(refValue != null){
+        const ry = y(refValue);
+        s += `<line x1="${m.l}" x2="${W - m.r}" y1="${ry}" y2="${ry}" stroke="#4d5a6b" stroke-width="1" stroke-dasharray="3 4"/>`;
+        s += `<text x="${W - m.r + 6}" y="${ry + 4}" text-anchor="start" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="10" fill="#8b98a8">${esc(refLabel)}</text>`;
+      }
+      // line, broken at gaps
+      let path = '', pen = false;
+      weeks.forEach((w, i) => {
+        if(w[key] == null){ pen = false; return; }
+        path += `${pen ? 'L' : 'M'}${x(i).toFixed(1)},${y(w[key]).toFixed(1)}`; pen = true;
+      });
+      s += `<path d="${path}" fill="none" stroke="#67e8f9" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+      // isolated points (a week with data on both sides missing) need a dot to be visible
+      weeks.forEach((w, i) => {
+        const solo = w[key] != null && (weeks[i-1]?.[key] == null) && (weeks[i+1]?.[key] == null);
+        if(solo) s += `<circle cx="${x(i)}" cy="${y(w[key])}" r="3" fill="#67e8f9"/>`;
+      });
+      // x labels: first week of each month
+      let lastMonth = '', lastX = -99;
+      weeks.forEach((w, i) => {
+        const mo = w.week_of.slice(0, 7);
+        if(mo !== lastMonth && x(i) - lastX >= 34){  // skip a label if it would crowd the previous one
+          lastMonth = mo; lastX = x(i);
+          s += `<text x="${x(i)}" y="${H - 6}" text-anchor="middle" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="10" fill="#4d5a6b">${new Date(w.week_of + 'T12:00:00').toLocaleDateString('en-US', {month:'short'})}</text>`;
+        }
+      });
+      // hover layer
+      s += `<line class="xh" x1="0" x2="0" y1="${m.t}" y2="${m.t + ph}" stroke="#2a3542" stroke-width="1" visibility="hidden"/>`;
+      s += `<circle class="hd" r="5" fill="#67e8f9" stroke="#0d1117" stroke-width="2" visibility="hidden"/>`;
+      s += `<rect class="hit" x="${m.l}" y="${m.t}" width="${pw}" height="${ph}" fill="transparent"/>`;
+      s += `</svg>`;
+      el.innerHTML = `<div class="wh-chart-title">${title}</div>${s}<div class="wh-tip"></div>`;
+
+      const svg = el.querySelector('svg'), tip = el.querySelector('.wh-tip');
+      const xh = svg.querySelector('.xh'), hd = svg.querySelector('.hd');
+      function move(evt){
+        const r = svg.getBoundingClientRect();
+        const px = (evt.clientX - r.left) * (W / r.width);
+        const i = Math.max(0, Math.min(n - 1, Math.round(((px - m.l) / pw) * (n - 1))));
+        const w = weeks[i];
+        xh.setAttribute('x1', x(i)); xh.setAttribute('x2', x(i)); xh.setAttribute('visibility', 'visible');
+        if(w[key] != null){ hd.setAttribute('cx', x(i)); hd.setAttribute('cy', y(w[key])); hd.setAttribute('visibility', 'visible'); }
+        else hd.setAttribute('visibility', 'hidden');
+        const body = w[key] != null
+          ? `<b>${unit === '%' ? Math.round(w[key]) + '%' : Math.round(w[key]) + ' ' + unit}</b> · ${w.days} day${w.days === 1 ? '' : 's'} tracked`
+          : (w.days ? `only ${w.days} day${w.days === 1 ? '' : 's'} tracked` : 'not wearing it');
+        tip.innerHTML = `<div class="t">week of ${fmtShort(w.week_of)}</div>${body}`;
+        const cx = (x(i) / W) * r.width + 14;
+        tip.style.left = Math.min(cx, el.clientWidth - tip.offsetWidth - 8) + 'px';
+        tip.style.top = '34px';
+        tip.style.opacity = 1;
+      }
+      function leave(){ tip.style.opacity = 0; xh.setAttribute('visibility', 'hidden'); hd.setAttribute('visibility', 'hidden'); }
+      svg.addEventListener('pointermove', move);
+      svg.addEventListener('pointerleave', leave);
+    }
+
+    function renderFindings(d){
+      const items = [
+        ...d.findings.map(f => ({factor:f.factor, verdict:f.verdict, meta:`r = ${f.r > 0 ? '+' : ''}${f.r.toFixed(2)} · ${f.days} days`})),
+        ...d.notes.map(n => ({factor:n.factor, verdict:n.verdict, meta:n.detail})),
+      ];
+      const groups = [
+        {key:'matters', title:'Matters', color:'#67e8f9'},
+        {key:'too early', title:'Too early to tell', color:'#8b98a8'},
+        {key:'no effect', title:"Didn't matter", color:'#4d5a6b'},
+      ];
+      $('wh-findings').innerHTML = groups.map(g => {
+        const list = items.filter(i => i.verdict === g.key);
+        return `<div class="wh-group"><h5><span class="dot" style="background:${g.color}"></span>${g.title}</h5>${
+          list.length ? '<ul>' + list.map(i => `<li>${esc(i.factor)}<span class="meta">${esc(i.meta)}</span></li>`).join('') + '</ul>'
+                      : '<div class="empty">Nothing yet.</div>'}</div>`;
+      }).join('');
+    }
+
+    function drawCharts(d){
+      lineChart($('wh-chart-recovery'), 'Recovery', d.weekly, 'recovery', '%', d.overall.avg_recovery, `my avg ${pct(d.overall.avg_recovery)}`);
+      lineChart($('wh-chart-hrv'), 'HRV (heart rate variability, ms)', d.weekly, 'hrv', 'ms', null, '');
+    }
+
+    function render(){
+      if(drawn) return;
+      load().then(d => {
+        drawn = true;
+        const c = d.coverage;
+        $('wh-coverage').textContent = `${c.days_with_recovery} nights · ${fmtShort(c.first_day)} – ${fmtDate(c.last_day)} · updated ${fmtDate(d.updated)}`;
+        $('wh-content').hidden = false;
+        renderGrid(d); renderTiles(d); renderFindings(d); drawCharts(d);
+      }).catch(() => { $('wh-error').hidden = false; $('wh-coverage').textContent = ''; });
+    }
+
+    // Draw when the tab is opened (and redraw charts if the window is resized).
+    document.querySelector('.tab-btn[data-panel="whoop"]').addEventListener('click', render);
+    if($('panel-whoop').classList.contains('active')) render();
+    let rt; window.addEventListener('resize', () => {
+      if(!data || !$('panel-whoop').classList.contains('active')) return;
+      clearTimeout(rt); rt = setTimeout(() => drawCharts(data), 150);
     });
   })();
 
