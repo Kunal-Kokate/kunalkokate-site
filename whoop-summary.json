@@ -1,0 +1,324 @@
+{
+  "updated": "2026-10-26",
+  "coverage": {
+    "days_tracked": 122,
+    "days_with_recovery": 110,
+    "first_day": "2026-03-28",
+    "last_day": "2026-10-26"
+  },
+  "overall": {
+    "avg_recovery": 52.9,
+    "green_days": 27,
+    "yellow_days": 64,
+    "red_days": 19
+  },
+  "grid": [
+    {
+      "bedtime": "before 2am",
+      "sleep": "6h+",
+      "avg_recovery": 60.9,
+      "nights": 52
+    },
+    {
+      "bedtime": "before 2am",
+      "sleep": "under 6h",
+      "avg_recovery": 50.2,
+      "nights": 29
+    },
+    {
+      "bedtime": "after 2am",
+      "sleep": "6h+",
+      "avg_recovery": 45.2,
+      "nights": 5
+    },
+    {
+      "bedtime": "after 2am",
+      "sleep": "under 6h",
+      "avg_recovery": 40.5,
+      "nights": 24
+    }
+  ],
+  "last7": {
+    "days_tracked": 2,
+    "avg_recovery": 53.0,
+    "avg_sleep_hours": 10.4,
+    "late_nights": 0,
+    "baseline_recovery": 52.9
+  },
+  "weekly": [
+    {
+      "week_of": "2026-03-23",
+      "days": 0,
+      "recovery": null,
+      "hrv": null,
+      "sleep_hours": null
+    },
+    {
+      "week_of": "2026-03-30",
+      "days": 4,
+      "recovery": 72.0,
+      "hrv": 84.6,
+      "sleep_hours": 6.2
+    },
+    {
+      "week_of": "2026-04-06",
+      "days": 7,
+      "recovery": 56.9,
+      "hrv": 89.1,
+      "sleep_hours": 5.6
+    },
+    {
+      "week_of": "2026-04-13",
+      "days": 7,
+      "recovery": 52.6,
+      "hrv": 87.6,
+      "sleep_hours": 6.4
+    },
+    {
+      "week_of": "2026-04-20",
+      "days": 7,
+      "recovery": 37.1,
+      "hrv": 86.1,
+      "sleep_hours": 5.1
+    },
+    {
+      "week_of": "2026-04-27",
+      "days": 7,
+      "recovery": 48.4,
+      "hrv": 83.7,
+      "sleep_hours": 6.1
+    },
+    {
+      "week_of": "2026-05-04",
+      "days": 6,
+      "recovery": 46.8,
+      "hrv": 83.4,
+      "sleep_hours": 5.5
+    },
+    {
+      "week_of": "2026-05-11",
+      "days": 7,
+      "recovery": 53.0,
+      "hrv": 78.2,
+      "sleep_hours": 6.8
+    },
+    {
+      "week_of": "2026-05-18",
+      "days": 0,
+      "recovery": null,
+      "hrv": null,
+      "sleep_hours": null
+    },
+    {
+      "week_of": "2026-05-25",
+      "days": 0,
+      "recovery": null,
+      "hrv": null,
+      "sleep_hours": null
+    },
+    {
+      "week_of": "2026-06-01",
+      "days": 6,
+      "recovery": 71.3,
+      "hrv": 91.2,
+      "sleep_hours": 6.9
+    },
+    {
+      "week_of": "2026-06-08",
+      "days": 7,
+      "recovery": 51.6,
+      "hrv": 87.1,
+      "sleep_hours": 6.4
+    },
+    {
+      "week_of": "2026-06-15",
+      "days": 7,
+      "recovery": 49.6,
+      "hrv": 101.2,
+      "sleep_hours": 5.7
+    },
+    {
+      "week_of": "2026-06-22",
+      "days": 7,
+      "recovery": 54.0,
+      "hrv": 84.5,
+      "sleep_hours": 6.7
+    },
+    {
+      "week_of": "2026-06-29",
+      "days": 5,
+      "recovery": 59.2,
+      "hrv": 87.9,
+      "sleep_hours": 6.8
+    },
+    {
+      "week_of": "2026-07-06",
+      "days": 0,
+      "recovery": null,
+      "hrv": null,
+      "sleep_hours": null
+    },
+    {
+      "week_of": "2026-07-13",
+      "days": 0,
+      "recovery": null,
+      "hrv": null,
+      "sleep_hours": null
+    },
+    {
+      "week_of": "2026-07-20",
+      "days": 0,
+      "recovery": null,
+      "hrv": null,
+      "sleep_hours": null
+    },
+    {
+      "week_of": "2026-07-27",
+      "days": 0,
+      "recovery": null,
+      "hrv": null,
+      "sleep_hours": null
+    },
+    {
+      "week_of": "2026-08-03",
+      "days": 0,
+      "recovery": null,
+      "hrv": null,
+      "sleep_hours": null
+    },
+    {
+      "week_of": "2026-08-10",
+      "days": 0,
+      "recovery": null,
+      "hrv": null,
+      "sleep_hours": null
+    },
+    {
+      "week_of": "2026-08-17",
+      "days": 0,
+      "recovery": null,
+      "hrv": null,
+      "sleep_hours": null
+    },
+    {
+      "week_of": "2026-08-24",
+      "days": 5,
+      "recovery": 66.4,
+      "hrv": 87.9,
+      "sleep_hours": 6.7
+    },
+    {
+      "week_of": "2026-08-31",
+      "days": 7,
+      "recovery": 55.3,
+      "hrv": 82.7,
+      "sleep_hours": 6.3
+    },
+    {
+      "week_of": "2026-09-07",
+      "days": 7,
+      "recovery": 36.0,
+      "hrv": 75.3,
+      "sleep_hours": 5.9
+    },
+    {
+      "week_of": "2026-09-14",
+      "days": 7,
+      "recovery": 44.9,
+      "hrv": 70.1,
+      "sleep_hours": 6.4
+    },
+    {
+      "week_of": "2026-09-21",
+      "days": 6,
+      "recovery": 61.2,
+      "hrv": 91.3,
+      "sleep_hours": 6.9
+    },
+    {
+      "week_of": "2026-09-28",
+      "days": 0,
+      "recovery": null,
+      "hrv": null,
+      "sleep_hours": null
+    },
+    {
+      "week_of": "2026-10-05",
+      "days": 0,
+      "recovery": null,
+      "hrv": null,
+      "sleep_hours": null
+    },
+    {
+      "week_of": "2026-10-12",
+      "days": 0,
+      "recovery": null,
+      "hrv": null,
+      "sleep_hours": null
+    },
+    {
+      "week_of": "2026-10-19",
+      "days": 0,
+      "recovery": null,
+      "hrv": null,
+      "sleep_hours": null
+    },
+    {
+      "week_of": "2026-10-26",
+      "days": 1,
+      "recovery": null,
+      "hrv": null,
+      "sleep_hours": null
+    }
+  ],
+  "findings": [
+    {
+      "factor": "Hours asleep",
+      "r": 0.34,
+      "days": 110,
+      "verdict": "matters"
+    },
+    {
+      "factor": "Bedtime (later)",
+      "r": -0.31,
+      "days": 110,
+      "verdict": "matters"
+    },
+    {
+      "factor": "REM sleep",
+      "r": 0.23,
+      "days": 110,
+      "verdict": "matters"
+    },
+    {
+      "factor": "Yesterday's strain",
+      "r": -0.19,
+      "days": 109,
+      "verdict": "too early"
+    },
+    {
+      "factor": "Sleep consistency",
+      "r": 0.07,
+      "days": 110,
+      "verdict": "no effect"
+    },
+    {
+      "factor": "Deep sleep",
+      "r": 0.0,
+      "days": 110,
+      "verdict": "no effect"
+    }
+  ],
+  "notes": [
+    {
+      "factor": "Worked out the day before",
+      "detail": "53% after a workout vs 53% after a rest day",
+      "verdict": "no effect"
+    },
+    {
+      "factor": "Day of the week",
+      "detail": "Tuesday 63% vs Saturday 44%, but only ~15 days each, so mostly noise",
+      "verdict": "too early"
+    }
+  ]
+}

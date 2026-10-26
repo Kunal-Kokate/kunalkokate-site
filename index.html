@@ -1119,6 +1119,10 @@
 
     <div class="log-list">
       <div class="log-item">
+        <div class="log-date">2026-10-26 · evening</div>
+        <div class="log-text">Whoop tab is live. Pulled 7 months of my Whoop data through the API into SQLite, tested what actually moves my recovery, and charted the answers. Headline: in bed before 2am with 6+ hours of sleep averages 61% recovery; miss both and it's 41%.</div>
+      </div>
+      <div class="log-item">
         <div class="log-date">2026-10-26</div>
         <div class="log-text">Started building the Whoop Data Dashboard and added a Whoop tab for it. Empty for now; it'll hold charts from my own Whoop data once the API pipeline is built. Dropped the Scroll-Blocker app.</div>
       </div>
@@ -1411,7 +1415,7 @@
         else hd.setAttribute('visibility', 'hidden');
         const body = w[key] != null
           ? `<b>${unit === '%' ? Math.round(w[key]) + '%' : Math.round(w[key]) + ' ' + unit}</b> · ${w.days} day${w.days === 1 ? '' : 's'} tracked`
-          : (w.days ? `only ${w.days} day${w.days === 1 ? '' : 's'} tracked` : 'not wearing it');
+          : (w.days ? `only ${w.days} day${w.days === 1 ? '' : 's'} tracked` : 'no data');
         tip.innerHTML = `<div class="t">week of ${fmtShort(w.week_of)}</div>${body}`;
         const cx = (x(i) / W) * r.width + 14;
         tip.style.left = Math.min(cx, el.clientWidth - tip.offsetWidth - 8) + 'px';
