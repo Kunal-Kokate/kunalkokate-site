@@ -598,6 +598,7 @@
       <button class="tab-btn" data-panel="goals">Goals</button>
       <button class="tab-btn" data-panel="stats">Stats</button>
       <button class="tab-btn" data-panel="roadmap">AI Roadmap</button>
+      <button class="tab-btn" data-panel="whoop">Whoop</button>
       <button class="tab-btn" data-panel="log">Log</button>
     </div>
   </div>
@@ -995,6 +996,15 @@
     </div>
   </section>
 
+  <!-- WHOOP -->
+  <section class="panel" id="panel-whoop">
+    <div class="panel-head">
+      <div class="panel-eyebrow">// my data</div>
+      <h2 class="panel-title">Whoop</h2>
+      <p class="panel-desc">Charts from my own Whoop data: sleep, recovery, and strain. Coming soon.</p>
+    </div>
+  </section>
+
   <!-- LOG -->
   <section class="panel" id="panel-log">
     <div class="panel-head">
@@ -1004,6 +1014,10 @@
     </div>
 
     <div class="log-list">
+      <div class="log-item">
+        <div class="log-date">2026-10-26</div>
+        <div class="log-text">Added a Whoop tab. Empty for now; it'll hold charts from my own Whoop data once the API pipeline is built.</div>
+      </div>
       <div class="log-item">
         <div class="log-date">2026-10-25</div>
         <div class="log-text">Reworked the AI Roadmap around where I actually am instead of starting from zero. Main track now builds on SQL/Snowflake: a SQL explainer tool, evals as my edge, RAG and agents applied at work, then one shipped public project. Dropped the game-playing and traffic-sim phases so it's only what I need to know.</div>
