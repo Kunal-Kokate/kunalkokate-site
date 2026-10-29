@@ -1,15 +1,15 @@
 {
-  "updated": "2026-10-28",
+  "updated": "2026-10-29",
   "coverage": {
-    "days_tracked": 124,
-    "days_with_recovery": 112,
+    "days_tracked": 125,
+    "days_with_recovery": 113,
     "first_day": "2026-03-28",
-    "last_day": "2026-10-28"
+    "last_day": "2026-10-29"
   },
   "overall": {
     "avg_recovery": 53.2,
     "green_days": 28,
-    "yellow_days": 65,
+    "yellow_days": 66,
     "red_days": 19
   },
   "grid": [
@@ -23,7 +23,7 @@
       "bedtime": "before 2am",
       "sleep": "under 6h",
       "avg_recovery": 51.5,
-      "nights": 31
+      "nights": 32
     },
     {
       "bedtime": "after 2am",
@@ -39,9 +39,9 @@
     }
   ],
   "last7": {
-    "days_tracked": 4,
-    "avg_recovery": 65.0,
-    "avg_sleep_hours": 7.4,
+    "days_tracked": 5,
+    "avg_recovery": 61.8,
+    "avg_sleep_hours": 6.7,
     "late_nights": 0,
     "baseline_recovery": 53.2
   },
@@ -265,47 +265,47 @@
     },
     {
       "week_of": "2026-10-26",
-      "days": 3,
-      "recovery": 65.0,
-      "hrv": 88.8,
-      "sleep_hours": 7.4
+      "days": 4,
+      "recovery": 61.8,
+      "hrv": 89.4,
+      "sleep_hours": 6.7
     }
   ],
   "findings": [
     {
       "factor": "Hours asleep",
       "r": 0.33,
-      "days": 112,
+      "days": 113,
       "verdict": "matters"
     },
     {
       "factor": "Bedtime (later)",
       "r": -0.31,
-      "days": 112,
+      "days": 113,
       "verdict": "matters"
     },
     {
       "factor": "REM sleep",
       "r": 0.21,
-      "days": 112,
+      "days": 113,
       "verdict": "matters"
     },
     {
       "factor": "Yesterday's strain",
       "r": -0.2,
-      "days": 111,
+      "days": 112,
       "verdict": "too early"
     },
     {
       "factor": "Sleep consistency",
       "r": 0.09,
-      "days": 112,
+      "days": 113,
       "verdict": "no effect"
     },
     {
       "factor": "Deep sleep",
       "r": -0.01,
-      "days": 112,
+      "days": 113,
       "verdict": "no effect"
     }
   ],
