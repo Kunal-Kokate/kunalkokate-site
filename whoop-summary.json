@@ -1,14 +1,14 @@
 {
-  "updated": "2026-10-31",
+  "updated": "2026-11-01",
   "coverage": {
-    "days_tracked": 127,
-    "days_with_recovery": 115,
+    "days_tracked": 128,
+    "days_with_recovery": 116,
     "first_day": "2026-03-28",
-    "last_day": "2026-10-31"
+    "last_day": "2026-11-01"
   },
   "overall": {
-    "avg_recovery": 53.3,
-    "green_days": 28,
+    "avg_recovery": 53.6,
+    "green_days": 29,
     "yellow_days": 68,
     "red_days": 19
   },
@@ -28,8 +28,8 @@
     {
       "bedtime": "after 2am",
       "sleep": "6h+",
-      "avg_recovery": 45.2,
-      "nights": 5
+      "avg_recovery": 51.8,
+      "nights": 6
     },
     {
       "bedtime": "after 2am",
@@ -40,10 +40,10 @@
   ],
   "last7": {
     "days_tracked": 7,
-    "avg_recovery": 61.0,
-    "avg_sleep_hours": 6.8,
-    "late_nights": 0,
-    "baseline_recovery": 53.3
+    "avg_recovery": 64.4,
+    "avg_sleep_hours": 6.7,
+    "late_nights": 1,
+    "baseline_recovery": 53.6
   },
   "weekly": [
     {
@@ -265,54 +265,54 @@
     },
     {
       "week_of": "2026-10-26",
-      "days": 6,
-      "recovery": 61.0,
-      "hrv": 85.3,
-      "sleep_hours": 6.8
+      "days": 7,
+      "recovery": 64.4,
+      "hrv": 86.7,
+      "sleep_hours": 6.7
     }
   ],
   "findings": [
     {
       "factor": "Hours asleep",
       "r": 0.33,
-      "days": 115,
+      "days": 116,
       "verdict": "matters"
     },
     {
       "factor": "Bedtime (later)",
-      "r": -0.31,
-      "days": 115,
+      "r": -0.3,
+      "days": 116,
       "verdict": "matters"
     },
     {
       "factor": "REM sleep",
       "r": 0.21,
-      "days": 115,
+      "days": 116,
       "verdict": "matters"
     },
     {
       "factor": "Yesterday's strain",
-      "r": -0.2,
-      "days": 114,
-      "verdict": "matters"
+      "r": -0.18,
+      "days": 115,
+      "verdict": "too early"
     },
     {
       "factor": "Sleep consistency",
-      "r": 0.09,
-      "days": 115,
+      "r": 0.08,
+      "days": 116,
       "verdict": "no effect"
     },
     {
       "factor": "Deep sleep",
-      "r": -0.01,
-      "days": 115,
+      "r": 0.01,
+      "days": 116,
       "verdict": "no effect"
     }
   ],
   "notes": [
     {
       "factor": "Worked out the day before",
-      "detail": "53% after a workout vs 54% after a rest day",
+      "detail": "54% after a workout vs 54% after a rest day",
       "verdict": "no effect"
     },
     {
