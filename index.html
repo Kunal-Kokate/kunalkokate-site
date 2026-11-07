@@ -507,7 +507,36 @@
     max-height:0; overflow:hidden;
     transition:max-height 0.35s ease, margin-top 0.35s ease;
   }
-  .roadmap-phase.open .phase-body{max-height:700px; margin-top:12px;}
+  .roadmap-phase.open .phase-body{max-height:4000px; margin-top:12px;}
+  .study-key{
+    display:flex; gap:10px 18px; flex-wrap:wrap;
+    margin:-12px 0 26px;
+    font-size:11.5px; color:var(--text-faint);
+  }
+  .study-key > span{display:inline-flex; align-items:center; gap:7px;}
+  .study-label{
+    margin-top:16px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; color:var(--text-faint);
+  }
+  .study-list{display:flex; flex-direction:column; gap:10px; margin-top:10px;}
+  .study-item{display:flex; align-items:flex-start; gap:10px;}
+  .study-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:9.5px; letter-spacing:0.04em; font-weight:600;
+    padding:2px 7px; border-radius:4px;
+    white-space:nowrap; flex-shrink:0; margin-top:2px;
+    min-width:74px; text-align:center;
+  }
+  .study-tag.all{color:var(--green); background:rgba(126,224,168,0.1); border:1px solid rgba(126,224,168,0.3);}
+  .study-tag.part{color:var(--cyan); background:rgba(103,232,249,0.08); border:1px solid rgba(103,232,249,0.25);}
+  .study-tag.ref{color:var(--violet); background:rgba(167,139,250,0.1); border:1px solid rgba(167,139,250,0.3);}
+  .study-tag.skip, .study-tag.opt{color:var(--text-faint); background:transparent; border:1px solid var(--border-light);}
+  .study-title{font-size:13.5px; font-weight:500;}
+  .study-title a{color:var(--text); text-decoration:underline; text-decoration-color:var(--border-light); text-underline-offset:3px;}
+  .study-title a:hover{color:var(--cyan);}
+  .study-note{font-size:13px; color:var(--text-mute); line-height:1.55; margin-top:2px;}
+  .milestone-list{margin-top:10px !important;}
   .phase-desc{font-size:13.5px; color:var(--text-mute); line-height:1.6; padding:0 2px;}
   .milestone-list{display:flex; flex-direction:column; gap:7px; margin-top:14px;}
   .milestone-item{
@@ -630,7 +659,7 @@
       <div class="now-card featured">
         <div class="icon">🤖</div>
         <h4>AI <span class="focus-tag">Main Focus</span></h4>
-        <p>Learning to build real things with AI on top of my data background: tools that call models, evals to check they're right, and agents I can use at work. Following my AI Roadmap. This is where most of my time outside work is going right now.</p>
+        <p>Getting really good at using AI: prompting, context, Claude Code and agents, then building tools and evals on top of my data background. Following my AI Roadmap. This is where most of my time outside work is going right now.</p>
       </div>
       <div class="now-card">
         <div class="icon">💼</div>
@@ -817,167 +846,215 @@
     <div class="panel-head">
       <div class="panel-eyebrow">// the plan</div>
       <h2 class="panel-title">AI Roadmap</h2>
-      <p class="panel-desc">Built around where I actually am: comfortable in SQL and Snowflake, Python basics down, new to building with AI. The main track turns my data background into AI skills that matter at work and in job interviews, with evals (checking whether AI answers are actually right) as my edge. Click a phase to expand it.</p>
-      <div class="updated-tag">reworked 10/25/2026</div>
+      <p class="panel-desc">Goal: get really good at using AI, not just know about it. SQL is already my edge (it lets me catch when AI is wrong), so Python is only "read it, don't memorize it". The main track is prompting, context and agents, then building and evals to prove it. Every resource says exactly how much of it to do. Click a phase to expand it.</p>
+      <div class="updated-tag">reworked 11/07/2026</div>
     </div>
 
     <div class="roadmap-tracks">
-      <span><span class="track-dot foundation"></span>Foundation — fast, skip what I know</span>
-      <span><span class="track-dot eng"></span>AI Engineering — main track, work &amp; career</span>
+      <span><span class="track-dot foundation"></span>Foundation — quick, just enough</span>
+      <span><span class="track-dot eng"></span>Using AI — main track</span>
+      <span><span class="track-dot ml"></span>Build — prove it</span>
+    </div>
+
+    <div class="study-key">
+      <span><span class="study-tag all">READ ALL</span> do the whole thing</span>
+      <span><span class="study-tag part">ONLY PART</span> just the sections listed</span>
+      <span><span class="study-tag ref">REFERENCE</span> look things up, don't read through</span>
+      <span><span class="study-tag skip">SKIP</span> only if stuck or curious</span>
     </div>
 
     <div class="roadmap-list" id="roadmap-list">
 
-      <div class="roadmap-phase foundation" data-id="v2p0">
+      <div class="roadmap-phase foundation" data-id="v3p0">
         <div class="phase-num">0</div>
         <div class="phase-head">
           <div class="phase-title-row">
-            <span class="phase-title">Python, the data-person way</span>
+            <span class="phase-title">Read code, don&#x27;t memorize it (1 week)</span>
             <span class="phase-track foundation">Foundation</span>
           </div>
           <span class="phase-progress"></span>
         </div>
         <div class="phase-body">
-          <p class="phase-desc">Not starting from zero. I already think in tables and queries, so the fastest route is learning Python by redoing things I already know how to do in SQL. Goal: comfortable enough that Python stops being the bottleneck. Target: about 3–4 weeks.</p>
-          <div class="milestone-list">
-            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Take 3 queries I've written at work (joins, group-bys, window functions) and rebuild them in pandas on fake data</div></div>
-            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Set up a proper project: virtual environment, pip installs, a .env file for keys that never gets committed to GitHub</div></div>
-            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Call a free public API from Python, parse the JSON, and load it into a table</div></div>
-            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Query Snowflake from Python with the Snowflake connector (on a free trial account, not work data)</div></div>
-            <div class="milestone-item" data-mid="m4"><div class="milestone-check"></div><div class="milestone-text">Git for real: branches, commits with real messages, every project from here on lives on GitHub</div></div>
+          <p class="phase-desc">Claude writes most of my code now, so the goal isn&#x27;t writing Python from memory. It&#x27;s being able to read what AI writes and tell when it&#x27;s wrong. SQL I already have, and it&#x27;s my edge: I can catch a bad join in seconds. Python just needs to stop being scary. Target: about 1 week of evenings.</p>
+          <div class="study-label">// what to read or watch, and how much</div>
+          <div class="study-list">
+            <div class="study-item"><span class="study-tag part">ONLY PART</span><div><div class="study-title"><a href="https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html" target="_blank" rel="noopener">pandas "Comparison with SQL"</a></div><div class="study-note">Read only the SELECT, WHERE, GROUP BY and JOIN sections (~30 min). It shows the pandas version of SQL I already know. Skip the rest.</div></div></div>
+            <div class="study-item"><span class="study-tag skip">SKIP</span><div><div class="study-title"><a href="https://automatetheboringstuff.com/" target="_blank" rel="noopener">Automate the Boring Stuff</a></div><div class="study-note">Don&#x27;t read it front to back. Only open a chapter if I hit something in Python I truly can&#x27;t follow, even after asking Claude to explain it.</div></div></div>
           </div>
-          <div class="phase-resources">// <a href="https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html" target="_blank" rel="noopener">pandas "Comparison with SQL"</a> — made for exactly this · <a href="https://automatetheboringstuff.com/" target="_blank" rel="noopener">Automate the Boring Stuff</a> for filling gaps</div>
+          <div class="study-label">// done when</div>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Install Claude Code and have it write a small Python script that does something I&#x27;d normally do in SQL (filter, group, join two CSVs)</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Go through that script and explain every line out loud. Any line I can&#x27;t explain, ask Claude why it&#x27;s there until I can</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Ask Claude to put a bug in the script on purpose, then find it myself without asking</div></div>
+            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Git basics, just enough to read what Claude does: commit, branch, push, and reading a diff</div></div>
+            <div class="milestone-item" data-mid="m4"><div class="milestone-check"></div><div class="milestone-text">Know the safety basics: API keys go in a .env file that never gets committed</div></div>
+          </div>
         </div>
       </div>
 
-      <div class="roadmap-phase foundation" data-id="v2p1">
+      <div class="roadmap-phase foundation" data-id="v3p1">
         <div class="phase-num">1</div>
         <div class="phase-head">
           <div class="phase-title-row">
-            <span class="phase-title">How LLMs work (2 weekends, max)</span>
+            <span class="phase-title">How LLMs actually behave (2 weekends)</span>
             <span class="phase-track foundation">Foundation</span>
           </div>
           <span class="phase-progress"></span>
         </div>
         <div class="phase-body">
-          <p class="phase-desc">Enough to understand what's happening under the hood without going down the math rabbit hole. Hard time limit, because this is the part that's easy to keep "studying" forever instead of building. Can run alongside Phase 0.</p>
-          <div class="milestone-list">
-            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Tokens, context windows, and why long inputs cost more and get less reliable</div></div>
-            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Embeddings: text turned into numbers so meaning can be compared (this comes back in Phase 4)</div></div>
-            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Training vs. inference, and why models hallucinate (they predict likely text, not true text)</div></div>
-            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Explain all of the above out loud to someone in 5 minutes without notes</div></div>
+          <p class="phase-desc">Not the math, just enough to know why AI does what it does: why it makes things up, why long chats get worse, why the same question gets different answers. Knowing this changes how I use it every day. Hard time limit of 2 weekends.</p>
+          <div class="study-label">// what to read or watch, and how much</div>
+          <div class="study-list">
+            <div class="study-item"><span class="study-tag all">READ ALL</span><div><div class="study-title"><a href="https://www.youtube.com/watch?v=zjkBMFhNj_g" target="_blank" rel="noopener">Karpathy, "Intro to Large Language Models"</a></div><div class="study-note">Watch the whole thing (~1 hour). Best short overview of what an LLM actually is.</div></div></div>
+            <div class="study-item"><span class="study-tag all">READ ALL</span><div><div class="study-title"><a href="https://www.youtube.com/watch?v=EWvNQjAaOHw" target="_blank" rel="noopener">Karpathy, "How I use LLMs"</a></div><div class="study-note">Watch the whole thing (~2 hours, split over 2 sittings, 1.25x speed is fine). This is the most directly useful video for me: a power user showing how he actually uses these tools.</div></div></div>
+            <div class="study-item"><span class="study-tag skip">SKIP</span><div><div class="study-title"><a href="https://www.youtube.com/watch?v=7xTGNNLPyMI" target="_blank" rel="noopener">Karpathy, "Deep Dive into LLMs"</a></div><div class="study-note">3.5 hours on how models are trained. Interesting, not needed. Skip unless I&#x27;m curious later.</div></div></div>
+            <div class="study-item"><span class="study-tag opt">OPTIONAL</span><div><div class="study-title"><a href="https://www.3blue1brown.com/topics/neural-networks" target="_blank" rel="noopener">3Blue1Brown neural networks series</a></div><div class="study-note">Optional. If I want the visual version, watch only the chapter &quot;But what is a GPT?&quot;. Skip the rest.</div></div></div>
           </div>
-          <div class="phase-resources">// <a href="https://www.3blue1brown.com/topics/neural-networks" target="_blank" rel="noopener">3Blue1Brown's neural network series</a> · <a href="https://www.youtube.com/watch?v=zjkBMFhNj_g" target="_blank" rel="noopener">Karpathy's "Intro to Large Language Models"</a></div>
+          <div class="study-label">// done when</div>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Explain tokens and the context window, and why long inputs cost more and get less reliable</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Explain why models hallucinate: they predict likely text, not true text</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Know when to start a fresh chat instead of continuing a long, messy one</div></div>
+            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Explain all of it out loud in 5 minutes without notes</div></div>
+          </div>
         </div>
       </div>
 
-      <div class="roadmap-phase eng" data-id="v2p2">
+      <div class="roadmap-phase eng" data-id="v3p2">
         <div class="phase-num">2</div>
         <div class="phase-head">
           <div class="phase-title-row">
-            <span class="phase-title">First real tool: SQL explainer</span>
-            <span class="phase-track eng">AI Engineering</span>
+            <span class="phase-title">Prompting and context</span>
+            <span class="phase-track eng">Using AI</span>
           </div>
           <span class="phase-progress"></span>
         </div>
         <div class="phase-body">
-          <p class="phase-desc">Learn the API by building something I'd actually use: a tool that reads a SQL script and writes plain-English documentation for it. That's half of what documenting a legacy pipeline is, so this lines up directly with work.</p>
-          <div class="milestone-list">
-            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Before touching any work code: check what my company allows to be sent to outside AI services (insurance = strict). Use my own sample SQL until that's clear</div></div>
-            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Call the Claude or OpenAI API from Python and get a response back</div></div>
-            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Use a system prompt and get structured JSON back: purpose, source tables, output tables, business logic, open questions</div></div>
-            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Add tool use: let the model look up a table's columns instead of guessing them</div></div>
-            <div class="milestone-item" data-mid="m4"><div class="milestone-check"></div><div class="milestone-text">Build: a command-line tool that takes a folder of .sql files and outputs a markdown doc for each</div></div>
+          <p class="phase-desc">The core skill. Good prompts are less about clever wording and more about giving the AI the right context: what I want, why, what good looks like, and examples. Target: about 2–3 weeks, roughly one tutorial chapter per evening.</p>
+          <div class="study-label">// what to read or watch, and how much</div>
+          <div class="study-list">
+            <div class="study-item"><span class="study-tag all">READ ALL</span><div><div class="study-title"><a href="https://github.com/anthropics/prompt-eng-interactive-tutorial" target="_blank" rel="noopener">Anthropic's interactive prompt engineering tutorial</a></div><div class="study-note">Do chapters 1–9, all of them, with the exercises (that&#x27;s where the learning is). Skip the appendix for now. It also has a Google Sheets version if I don&#x27;t want to set up notebooks.</div></div></div>
+            <div class="study-item"><span class="study-tag all">READ ALL</span><div><div class="study-title"><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank" rel="noopener">Anthropic, "Effective context engineering for AI agents"</a></div><div class="study-note">Read the whole article (~20 min) after finishing the tutorial. It explains why context matters more than wording.</div></div></div>
+            <div class="study-item"><span class="study-tag ref">REFERENCE</span><div><div class="study-title"><a href="https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener">Claude prompt engineering docs</a></div><div class="study-note">Reference only. Don&#x27;t read it cover to cover. Look up a specific technique when I need it.</div></div></div>
           </div>
-          <div class="phase-resources">// <a href="https://docs.claude.com" target="_blank" rel="noopener">Anthropic API docs</a> · <a href="https://www.deeplearning.ai/short-courses/" target="_blank" rel="noopener">DeepLearning.AI short courses</a></div>
+          <div class="study-label">// done when</div>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Finish tutorial chapters 1–9 with the exercises</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Take 5 prompts I actually used this month, rewrite them with what I learned, and compare the answers side by side</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Start a prompt library: a text file of 5+ prompts I reuse, each with a note on why it works</div></div>
+            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Make it a habit: before asking anything big, write down what I want, why, and what a good answer looks like</div></div>
+          </div>
         </div>
       </div>
 
-      <div class="roadmap-phase eng" data-id="v2p3">
+      <div class="roadmap-phase eng" data-id="v3p3">
         <div class="phase-num">3</div>
         <div class="phase-head">
           <div class="phase-title-row">
-            <span class="phase-title">Evals: my edge</span>
-            <span class="phase-track eng">AI Engineering</span>
+            <span class="phase-title">Claude Code as my daily driver</span>
+            <span class="phase-track eng">Using AI</span>
           </div>
           <span class="phase-progress"></span>
         </div>
         <div class="phase-body">
-          <p class="phase-desc">Evals means testing whether an AI system's answers are actually right, at scale, instead of eyeballing a few. It's basically data reconciliation pointed at AI output, which is literally my day job. Most people building with AI skip this, and it's what companies deploying AI struggle with most.</p>
-          <div class="milestone-list">
-            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Build a "golden set": 20–30 SQL scripts where I've written the correct answer myself (which tables it reads, what it outputs)</div></div>
-            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Write a script that runs the Phase 2 tool on the golden set and scores it: exact-match checks for the hard facts, a second model grading the fuzzy parts</div></div>
-            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Store every run's results in a table and compare: does a prompt change or a different model actually improve the score?</div></div>
-            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Read through the failures by hand and group them by type. Write up what I learned on this site</div></div>
+          <p class="phase-desc">Using an agent for real work, not just chatting. Claude Code reads files, runs commands and makes changes itself, so the skill is steering it well: plan first, give it the right context, check its work. Target: about 3 weeks, mostly by using it on real things like this site.</p>
+          <div class="study-label">// what to read or watch, and how much</div>
+          <div class="study-list">
+            <div class="study-item"><span class="study-tag all">READ ALL</span><div><div class="study-title"><a href="https://anthropic.skilljar.com/" target="_blank" rel="noopener">Anthropic Academy: "Claude Code 101"</a></div><div class="study-note">Do the whole course first. Free, with a certificate for LinkedIn.</div></div></div>
+            <div class="study-item"><span class="study-tag all">READ ALL</span><div><div class="study-title"><a href="https://anthropic.skilljar.com/" target="_blank" rel="noopener">Anthropic Academy: "Claude Code in Action"</a></div><div class="study-note">Do the whole course after 101. It covers longer, hands-off sessions and checking the work.</div></div></div>
+            <div class="study-item"><span class="study-tag all">READ ALL</span><div><div class="study-title"><a href="https://code.claude.com/docs/en/best-practices" target="_blank" rel="noopener">Claude Code best practices doc</a></div><div class="study-note">Read the whole thing once, then come back to it. If I only read one doc in this phase, it&#x27;s this one.</div></div></div>
+            <div class="study-item"><span class="study-tag part">ONLY PART</span><div><div class="study-title"><a href="https://code.claude.com/docs/en/features-overview" target="_blank" rel="noopener">Claude Code features overview</a></div><div class="study-note">Skim only, to know what exists (skills, subagents, hooks, MCP). Read a section properly only when I go to use it.</div></div></div>
           </div>
-          <div class="phase-resources">// <a href="https://hamel.dev" target="_blank" rel="noopener">Hamel Husain's writing on evals</a> — the most practical stuff out there · <a href="https://docs.claude.com" target="_blank" rel="noopener">Anthropic docs on testing &amp; evaluation</a></div>
+          <div class="study-label">// done when</div>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Before using it on any work code: check what my company allows to be sent to outside AI tools (insurance = strict)</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Write a CLAUDE.md for my website repo so Claude knows how the site works without me explaining every time</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Make 3 real changes to my site with Claude Code: plan first, let it build, then review the diff myself before pushing</div></div>
+            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Turn something I do over and over into a reusable skill or slash command</div></div>
+            <div class="milestone-item" data-mid="m4"><div class="milestone-check"></div><div class="milestone-text">Use a subagent for a research-type task and see how it keeps the main chat clean</div></div>
+          </div>
         </div>
       </div>
 
-      <div class="roadmap-phase eng" data-id="v2p4">
+      <div class="roadmap-phase ml" data-id="v3p4">
         <div class="phase-num">4</div>
         <div class="phase-head">
           <div class="phase-title-row">
-            <span class="phase-title">RAG over data I know</span>
-            <span class="phase-track eng">AI Engineering</span>
+            <span class="phase-title">Agents, tools and MCP</span>
+            <span class="phase-track ml">Build</span>
           </div>
           <span class="phase-progress"></span>
         </div>
         <div class="phase-body">
-          <p class="phase-desc">Retrieval-augmented generation (RAG): giving the model the right documents at question time instead of relying on what it memorized. The docs from Phase 2 become the data source, so these phases stack instead of being separate tutorials.</p>
-          <div class="milestone-list">
-            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Understand vector search: searching by meaning instead of exact keywords</div></div>
-            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Load the Phase 2 docs into Chroma (a simple local vector database)</div></div>
-            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Build: ask "which scripts touch this table?" or "where does this column come from?" and get grounded answers with sources</div></div>
-            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Measure it with a Phase 3-style eval set instead of guessing whether it works</div></div>
-            <div class="milestone-item" data-mid="m4"><div class="milestone-check"></div><div class="milestone-text">Look into Snowflake Cortex: the same idea, but running inside Snowflake, which is likely the version my company would actually approve</div></div>
+          <p class="phase-desc">An agent is a model using tools in a loop: plan, act, check the result, repeat. Knowing how they work under the hood makes me much better at using them, and lets me build my own. This is where my old SQL explainer idea lives. Target: about 3–4 weeks.</p>
+          <div class="study-label">// what to read or watch, and how much</div>
+          <div class="study-list">
+            <div class="study-item"><span class="study-tag all">READ ALL</span><div><div class="study-title"><a href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener">Anthropic, "Building effective agents"</a></div><div class="study-note">Read the whole article (~25 min). Main takeaway: start simple, and most problems don&#x27;t need a complex agent.</div></div></div>
+            <div class="study-item"><span class="study-tag part">ONLY PART</span><div><div class="study-title"><a href="https://anthropic.skilljar.com/" target="_blank" rel="noopener">Anthropic Academy: "Building with the Claude API"</a></div><div class="study-note">Do only 3 sections: &quot;Accessing Claude with the API&quot;, &quot;Tool use with Claude&quot; and &quot;Agents and workflows&quot;. Skip RAG, the Claude features section and MCP for now (I&#x27;ll come back to evals in Phase 5).</div></div></div>
+            <div class="study-item"><span class="study-tag all">READ ALL</span><div><div class="study-title"><a href="https://anthropic.skilljar.com/" target="_blank" rel="noopener">Anthropic Academy: "Introduction to Model Context Protocol"</a></div><div class="study-note">Do the whole course. MCP is how AI tools connect to other apps and data, and it&#x27;s everywhere now.</div></div></div>
           </div>
-          <div class="phase-resources">// <a href="https://docs.trychroma.com/getting-started" target="_blank" rel="noopener">Chroma quickstart</a> · <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions" target="_blank" rel="noopener">Snowflake Cortex docs</a></div>
+          <div class="study-label">// done when</div>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Call the Claude API from Python (with Claude Code&#x27;s help) and get structured JSON back</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Build the SQL explainer: a tool that reads a folder of .sql files and writes a plain-English doc for each (purpose, tables, logic, open questions). Use my own sample SQL, not work code</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Give it a tool: let the model look up a table&#x27;s columns instead of guessing</div></div>
+            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Write a simple agent loop by hand, no framework, so I know what frameworks do for me</div></div>
+            <div class="milestone-item" data-mid="m4"><div class="milestone-check"></div><div class="milestone-text">Connect an MCP server to Claude (GitHub or Snowflake on a free trial) and use it for a real task</div></div>
+          </div>
         </div>
       </div>
 
-      <div class="roadmap-phase eng" data-id="v2p5">
+      <div class="roadmap-phase ml" data-id="v3p5">
         <div class="phase-num">5</div>
         <div class="phase-head">
           <div class="phase-title-row">
-            <span class="phase-title">Agents, applied at work</span>
-            <span class="phase-track eng">AI Engineering</span>
+            <span class="phase-title">Evals: my edge</span>
+            <span class="phase-track ml">Build</span>
           </div>
           <span class="phase-progress"></span>
         </div>
         <div class="phase-body">
-          <p class="phase-desc">An agent is a model that takes several steps on its own: plan, run a tool, check the result, repeat. This is where it lands at work, on the reconciliation and Snowflake problems I already deal with. One small thing a teammate actually uses beats ten demos.</p>
-          <div class="milestone-list">
-            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Write a simple agent loop by hand (no framework) so I understand what frameworks are doing for me</div></div>
-            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Build: plain-English question → SQL → results, against a sandbox schema</div></div>
-            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Eval it the reconciliation way: compare the agent's result set to a hand-written correct query's result set</div></div>
-            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Build: a mismatch investigator. Give it two sources that disagree; it queries both and explains the likely cause</div></div>
-            <div class="milestone-item" data-mid="m4"><div class="milestone-check"></div><div class="milestone-text">Get one teammate to use something I built, collect their feedback, and turn it into a resume bullet with a real number</div></div>
+          <p class="phase-desc">Evals means testing whether AI answers are actually right, at scale, instead of eyeballing a few. It&#x27;s basically data reconciliation pointed at AI output, which is literally my day job. Most people skip this. Target: about 2–3 weeks.</p>
+          <div class="study-label">// what to read or watch, and how much</div>
+          <div class="study-list">
+            <div class="study-item"><span class="study-tag all">READ ALL</span><div><div class="study-title"><a href="https://hamel.dev/blog/posts/evals/" target="_blank" rel="noopener">Hamel Husain, "Your AI Product Needs Evals"</a></div><div class="study-note">Read the whole post (~30 min). The most practical writing on evals out there.</div></div></div>
+            <div class="study-item"><span class="study-tag part">ONLY PART</span><div><div class="study-title"><a href="https://anthropic.skilljar.com/" target="_blank" rel="noopener">Anthropic Academy: "Building with the Claude API"</a></div><div class="study-note">Do only the &quot;Prompt evaluation&quot; section (typical eval workflow through code-based grading). The rest I&#x27;ve either done or skipped on purpose.</div></div></div>
           </div>
-          <div class="phase-resources">// <a href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener">Anthropic's "Building effective agents"</a> · <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-analyst" target="_blank" rel="noopener">Snowflake Cortex Analyst</a> (text-to-SQL inside Snowflake)</div>
+          <div class="study-label">// done when</div>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Build a golden set: 20–30 SQL scripts where I&#x27;ve written the correct answer myself (which tables it reads, what it outputs)</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Score the SQL explainer on it: exact-match checks for hard facts, a second model grading the fuzzy parts</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Store every run&#x27;s score in a table and check whether a prompt change actually helps</div></div>
+            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Read the failures by hand, group them by type, and write up what I learned on this site</div></div>
+          </div>
         </div>
       </div>
 
-      <div class="roadmap-phase eng" data-id="v2p6">
+      <div class="roadmap-phase ml" data-id="v3p6">
         <div class="phase-num">6</div>
         <div class="phase-head">
           <div class="phase-title-row">
-            <span class="phase-title">Ship one public project</span>
-            <span class="phase-track eng">AI Engineering</span>
+            <span class="phase-title">Use it at work, ship it in public</span>
+            <span class="phase-track ml">Build</span>
           </div>
           <span class="phase-progress"></span>
         </div>
         <div class="phase-body">
-          <p class="phase-desc">Work projects can't be shown publicly, so I need one thing anyone can see. One project, finished, beats five half-started ones. Pick it, scope it small, ship it.</p>
+          <p class="phase-desc">Proof. One thing a teammate actually uses beats ten demos, and one finished public project beats five half-started ones. From here, the habit is to keep using AI on real problems and stay current.</p>
+          <div class="study-label">// what to read or watch, and how much</div>
+          <div class="study-list">
+            <div class="study-item"><span class="study-tag ref">REFERENCE</span><div><div class="study-title"><a href="https://simonwillison.net/" target="_blank" rel="noopener">Simon Willison's blog</a></div><div class="study-note">Don&#x27;t read the archive. Skim new posts for 20–30 min a week to keep up with what&#x27;s changing.</div></div></div>
+            <div class="study-item"><span class="study-tag ref">REFERENCE</span><div><div class="study-title"><a href="https://www.anthropic.com/engineering" target="_blank" rel="noopener">Anthropic engineering blog</a></div><div class="study-note">Read new posts when they come out. Skip the back catalog except what&#x27;s already linked above.</div></div></div>
+          </div>
+          <div class="study-label">// done when</div>
           <div class="milestone-list">
-            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Pick ONE personal project with AI inside it, ideally one built on data (like my own fitness data), and write down what "done" means before starting</div></div>
-            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Build it using everything above: API, structured output, retrieval or agents if it needs them</div></div>
-            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Include a small eval set in the repo showing how well it works (this alone sets it apart)</div></div>
-            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Public GitHub repo with a clear README, plus a write-up here on the site</div></div>
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Build a mismatch investigator for work (if allowed): give it two sources that disagree and it explains the likely cause</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Get one teammate to use something I built, collect their feedback, and turn it into a resume bullet with a real number</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Pick ONE public project with AI inside it and write down what &quot;done&quot; means before starting</div></div>
+            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Ship it: public GitHub repo with a clear README, a small eval set, and a write-up on this site</div></div>
           </div>
         </div>
       </div>
-
 
     </div>
   </section>
@@ -991,6 +1068,10 @@
     </div>
 
     <div class="log-list">
+      <div class="log-item">
+        <div class="log-date">2026-11-07</div>
+        <div class="log-text">Reworked the AI Roadmap again. Main focus is now getting really good at using AI (prompting, context, Claude Code, agents, MCP) instead of learning Python properly. Python is now "read it, don't memorize it." Every resource now says exactly how much to do: read all, only certain sections, reference, or skip.</div>
+      </div>
       <div class="log-item">
         <div class="log-date">2026-11-02</div>
         <div class="log-text">Removed the Whoop tab. I'm canceling my Whoop, so the dashboard is done.</div>
