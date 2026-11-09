@@ -1056,6 +1056,33 @@
         </div>
       </div>
 
+      <div class="roadmap-phase foundation" data-id="v3p7">
+        <div class="phase-num">7</div>
+        <div class="phase-head">
+          <div class="phase-title-row">
+            <span class="phase-title">PySpark: SQL at scale (2–3 weekends)</span>
+            <span class="phase-track foundation">Side track</span>
+          </div>
+          <span class="phase-progress"></span>
+        </div>
+        <div class="phase-body">
+          <p class="phase-desc">Not AI, but a lot of the data engineer roles I&#x27;m applying to ask for Spark. PySpark DataFrames work a lot like SQL, so this should go fast for me. Same rule as Python: Claude can write it, I just need to read it, know when it&#x27;s wrong, and understand why Spark is lazy. Can run alongside any phase above. Target: 2–3 weekends.</p>
+          <div class="study-label">// what to read or watch, and how much</div>
+          <div class="study-list">
+            <div class="study-item"><span class="study-tag all">READ ALL</span><div><div class="study-title"><a href="https://spark.apache.org/docs/latest/api/python/getting_started/quickstart_df.html" target="_blank" rel="noopener">PySpark "Quickstart: DataFrame"</a></div><div class="study-note">Short official intro. Run every cell myself. Pay the most attention to Grouping Data and Working with SQL, since those map straight to what I already know.</div></div></div>
+            <div class="study-item"><span class="study-tag ref">REFERENCE</span><div><div class="study-title"><a href="https://spark.apache.org/docs/latest/sql-programming-guide.html" target="_blank" rel="noopener">Spark SQL and DataFrames guide</a></div><div class="study-note">Don&#x27;t read through. Look things up when I hit them (joins, window functions, reading files).</div></div></div>
+            <div class="study-item"><span class="study-tag ref">REFERENCE</span><div><div class="study-title"><a href="https://www.databricks.com/learn/free-edition" target="_blank" rel="noopener">Databricks Free Edition</a></div><div class="study-note">Free place to run Spark without setting anything up locally. Use it for the milestones below. Sample data only, nothing from work.</div></div></div>
+          </div>
+          <div class="study-label">// done when</div>
+          <div class="milestone-list">
+            <div class="milestone-item" data-mid="m0"><div class="milestone-check"></div><div class="milestone-text">Sign up for Databricks Free Edition and run the DataFrame quickstart there</div></div>
+            <div class="milestone-item" data-mid="m1"><div class="milestone-check"></div><div class="milestone-text">Take a SQL query I&#x27;d normally write (filter, group, join two tables) and rewrite it in PySpark, then do it again with spark.sql() and check both give the same answer</div></div>
+            <div class="milestone-item" data-mid="m2"><div class="milestone-check"></div><div class="milestone-text">Explain in plain words why nothing runs until .show() or .count(), and what a shuffle is</div></div>
+            <div class="milestone-item" data-mid="m3"><div class="milestone-check"></div><div class="milestone-text">Build a small reconciliation job in PySpark: compare two sample datasets and output the rows that don&#x27;t match</div></div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -1068,6 +1095,10 @@
     </div>
 
     <div class="log-list">
+      <div class="log-item">
+        <div class="log-date">2026-11-09</div>
+        <div class="log-text">Added PySpark to the AI Roadmap as a side track (phase 7). It's not AI, but Spark keeps showing up in the data engineer roles I'm applying for, and it maps closely to SQL.</div>
+      </div>
       <div class="log-item">
         <div class="log-date">2026-11-07</div>
         <div class="log-text">Reworked the AI Roadmap again. Main focus is now getting really good at using AI (prompting, context, Claude Code, agents, MCP) instead of learning Python properly. Python is now "read it, don't memorize it." Every resource now says exactly how much to do: read all, only certain sections, reference, or skip.</div>
